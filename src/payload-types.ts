@@ -6,23 +6,103 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
+    rangers: Ranger;
+    teams: Team;
+    cards: Card;
+    zords: Zord;
+    megazords: Megazord;
     users: User;
     media: Media;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    rangers: RangersSelect<false> | RangersSelect<true>;
+    teams: TeamsSelect<false> | TeamsSelect<true>;
+    cards: CardsSelect<false> | CardsSelect<true>;
+    zords: ZordsSelect<false> | ZordsSelect<true>;
+    megazords: MegazordsSelect<false> | MegazordsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
+  globalsSelect: {};
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -44,11 +124,154 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Represents individual Power Ranger characters and their variants.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rangers".
+ */
+export interface Ranger {
+  id: number;
+  /**
+   * The character's name (e.g., Jason Lee Scott, Alpha 5).
+   */
+  name: string;
+  team: number | Team;
+  /**
+   * e.g., Red, Yellow, Ally, Gold, Purple.
+   */
+  color: string;
+  /**
+   * Descriptive title below the name (e.g., Mighty Morphin Red, Loyal Robot).
+   */
+  subtext?: string | null;
+  abilities?:
+    | {
+        name: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The cards included in this Ranger's specific deck.
+   */
+  deck?:
+    | {
+        card: number | Card;
+        /**
+         * How many copies of this card are in the deck.
+         */
+        count: number;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Check if this character is an Ally (like Alpha 5, Ninjor) rather than a primary Ranger.
+   */
+  isAlly?: boolean | null;
+  /**
+   * Specifies the type of Rangers for Super Megaforce Silver's key deck construction.
+   */
+  keyDeckRangerType?: ('na' | 'sixth' | 'core') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Represents a Power Rangers team season (e.g., Mighty Morphin, Zeo).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams".
+ */
+export interface Team {
+  id: number;
+  /**
+   * The official name of the Power Rangers team/season.
+   */
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Individual combat cards used by Rangers.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards".
+ */
+export interface Card {
+  id: number;
+  name: string;
+  energyCost: string;
+  type: 'ATTACK' | 'MANEUVER' | 'REACTION';
+  shields: number;
+  attack?: string | null;
+  description?: string | null;
+  iconAbility?: {
+    /**
+     * e.g., ★, 王, [GIFT], [CHROMAFURY]
+     */
+    icon?: string | null;
+    description?: string | null;
+  };
+  /**
+   * Check if this card belongs to a Super Megaforce Silver key deck.
+   */
+  isKeyCard?: boolean | null;
+  /**
+   * The effect triggered when this card is revealed as a gift.
+   */
+  giftEffect?: string | null;
+  /**
+   * How many Chromafury icons are on this Dino Key.
+   */
+  chromafuryIcons?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Individual Zords associated with Rangers.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "zords".
+ */
+export interface Zord {
+  id: number;
+  name: string;
+  team: (number | Team)[];
+  /**
+   * e.g., Dino Zords, Thunder Zords, Ninjazord System, Other MMPR Zords.
+   */
+  type: string;
+  /**
+   * The descriptive text indicating which Ranger(s) use this Zord (e.g., 'Mighty Morphin Red', 'Any Mighty Morphin Ranger').
+   */
+  rangerAssociation?: string | null;
+  /**
+   * Direct link to Ranger entries that can use this Zord. Based on the 'rangers' array in source data.
+   */
+  compatibleRangers?: (number | Ranger)[] | null;
+  ability: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Combined Megazord formations.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "megazords".
+ */
+export interface Megazord {
+  id: number;
+  name: string;
+  team: (number | Team)[];
+  ability: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -65,7 +288,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -81,13 +304,56 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: number;
+  document?:
+    | ({
+        relationTo: 'rangers';
+        value: number | Ranger;
+      } | null)
+    | ({
+        relationTo: 'teams';
+        value: number | Team;
+      } | null)
+    | ({
+        relationTo: 'cards';
+        value: number | Card;
+      } | null)
+    | ({
+        relationTo: 'zords';
+        value: number | Zord;
+      } | null)
+    | ({
+        relationTo: 'megazords';
+        value: number | Megazord;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -107,11 +373,161 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rangers_select".
+ */
+export interface RangersSelect<T extends boolean = true> {
+  name?: T;
+  team?: T;
+  color?: T;
+  subtext?: T;
+  abilities?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        id?: T;
+      };
+  deck?:
+    | T
+    | {
+        card?: T;
+        count?: T;
+        id?: T;
+      };
+  isAlly?: T;
+  keyDeckRangerType?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams_select".
+ */
+export interface TeamsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cards_select".
+ */
+export interface CardsSelect<T extends boolean = true> {
+  name?: T;
+  energyCost?: T;
+  type?: T;
+  shields?: T;
+  attack?: T;
+  description?: T;
+  iconAbility?:
+    | T
+    | {
+        icon?: T;
+        description?: T;
+      };
+  isKeyCard?: T;
+  giftEffect?: T;
+  chromafuryIcons?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "zords_select".
+ */
+export interface ZordsSelect<T extends boolean = true> {
+  name?: T;
+  team?: T;
+  type?: T;
+  rangerAssociation?: T;
+  compatibleRangers?: T;
+  ability?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "megazords_select".
+ */
+export interface MegazordsSelect<T extends boolean = true> {
+  name?: T;
+  team?: T;
+  ability?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
