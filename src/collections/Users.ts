@@ -24,7 +24,7 @@ export const Users: CollectionConfig = {
     },
     admin: ({ req: { user } }) => {
       if (!user) return false
-      return user.type === 'super'
+      return ['super', 'admin'].includes(user.type)
     },
     unlock: ({ req: { user } }) => {
       if (!user) return false
