@@ -12,7 +12,8 @@
     "types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "clean": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm install"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.33.0",
@@ -29,7 +30,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
-    "@types/node": "^22.5.4",
+    "@types/node": "^22.14.1",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
     "eslint": "^9.16.0",
@@ -43,6 +44,7 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "esbuild",
       "sharp"
     ]
   }
