@@ -3,7 +3,7 @@ import React from 'react';
 import { Card } from '@/payload-types'; // Assuming Card interface is here
 
 // Helper function or object for icons (same as before or customize)
-const getIcon = (iconName: Card['iconAbility']['icon']) => {
+const getIcon = (iconName: 'STAR' | 'KING' | 'GIFT') => {
   switch (iconName) {
     case 'STAR':
       return '⭐';
