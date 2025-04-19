@@ -437,3 +437,45 @@ h1 {
     font-size: 1.8em;
   }
 }
+
+/* --- Teams Page Styling --- */
+
+.teams-grid {
+  display: grid;
+  /* Create two equal-width columns */
+  grid-template-columns: repeat(2, 1fr);
+  /* Add spacing between grid items (rows and columns) */
+  gap: 15px;
+  padding: 0; /* Remove padding if using gap */
+  margin: 20px auto;
+  max-width: 900px; /* Adjust max-width if needed for 2 columns */
+}
+
+.team-item-grid {
+  padding: 15px 20px;
+  background-color: #2a2a2a; /* Dark background for each item */
+  border-radius: 6px; /* Rounded corners for each item */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  color: #e0e0e0;
+  font-size: 1.1em;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+  text-align: center; /* Center text within the grid item */
+}
+
+.team-item-grid:hover {
+  background-color: #383838;
+  color: #fff;
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* --- Responsive Adjustment (Optional) --- */
+/* Switch to 1 column on smaller screens */
+@media (max-width: 600px) {
+  .teams-grid {
+    grid-template-columns: 1fr; /* Stack items vertically */
+    gap: 10px; /* Adjust gap for single column */
+    max-width: 400px; /* Adjust width for single column */
+  }
+}
