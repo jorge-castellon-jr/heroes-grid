@@ -1,125 +1,179 @@
 import type { CollectionConfig } from 'payload'
 
+const rangerColorOptions = [
+  { label: 'Red', value: 'red' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Black', value: 'black' },
+  { label: 'Yellow', value: 'yellow' },
+  { label: 'Pink', value: 'pink' },
+  { label: 'Green', value: 'green' },
+  { label: 'White', value: 'white' },
+  { label: 'Gold', value: 'gold' },
+  { label: 'Silver', value: 'silver' },
+  { label: 'Shadow', value: 'shadow' },
+  { label: 'Crimson', value: 'crimson' },
+  { label: 'Navy', value: 'navy' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Purple', value: 'purple' },
+  { label: 'Zenith', value: 'zenith' },
+  { label: 'Dark', value: 'dark' },
+]
+
 export const Rangers: CollectionConfig = {
   slug: "rangers",
   admin: {
     useAsTitle: "name",
-    description: "Represents individual Power Ranger characters and their variants.",
-    defaultColumns: ["name", "team", "color", "subtext"],
+    defaultColumns: ["name", "subtext", "team", "color"],
   },
   access: {
     read: () => true, // Publicly readable
   },
   fields: [
     {
-      name: "name",
-      type: "text",
-      required: true,
-      label: "Ranger Name",
-      admin: {
-        description: "The character's name (e.g., Jason Lee Scott, Alpha 5).",
-      },
-    },
-    {
-      name: "team",
-      type: "relationship",
-      relationTo: "teams",
-      required: true,
-      label: "Team",
-    },
-    {
-      name: "color",
-      type: "text",
-      required: true,
-      label: "Color / Designation",
-      admin: {
-        description: "e.g., Red, Yellow, Ally, Gold, Purple.",
-      },
-    },
-    {
-      name: "subtext",
-      type: "text",
-      label: "Subtext / Title",
-      admin: {
-        description:
-          "Descriptive title below the name (e.g., Mighty Morphin Red, Loyal Robot).",
-      },
-    },
-    {
-      name: "abilities",
-      type: "array",
-      label: "Character Abilities",
-      minRows: 1,
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: "name",
-          type: "text",
-          required: true,
-          label: "Ability Name",
+          label: 'Basic Information',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: "name",
+                  type: "text",
+                  required: true,
+                  label: "Ranger Name",
+                  admin: {
+                    width: '50%',
+                    description: "The character's name (e.g., Jason Lee Scott, Alpha 5).",
+                  },
+                },
+                {
+                  name: "title",
+                  type: "text",
+                  required: true,
+                  label: "Title",
+                },
+              ]
+            },
+            {
+              name: "abilityName",
+              type: "text",
+              required: true,
+              label: "Ability Name",
+            },
+            {
+              name: "ability",
+              type: "textarea",
+              required: true,
+              label: "Ability Text",
+            },
+            {
+              name: "isOncePerTurn",
+              type: "checkbox",
+              label: "Is the ability once per turn?",
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: "team",
+                  type: "relationship",
+                  relationTo: "teams",
+                  required: true,
+                  label: "Team",
+                  admin: {
+                    width: '50%',
+                  }
+                },
+                {
+                  name: "color",
+                  type: "select", // Changed from 'text' to 'select'
+                  required: true,
+                  options: rangerColorOptions, // Use the dynamically generated options
+                  label: "Color",
+                },
+              ]
+            },
+            {
+              name: "type",
+              type: "select",
+              label: "Ranger Type",
+              required: true,
+              options: [
+                { label: "Core Team", value: "core" },
+                { label: "Sixth Ranger", value: "sixth" },
+                { label: "Extra Ranger", value: "extra" },
+                { label: "Ally", value: "ally" },
+              ],
+            },
+          ]
         },
         {
-          name: "description",
-          type: "textarea",
-          required: true,
-          label: "Ability Description",
+          label: 'Deck',
+          fields: [
+            {
+              name: "cardTitle",
+              type: "text",
+              label: "Card Title",
+              admin: {
+                description: "Descriptive title on bottom of each card",
+              },
+            },
+            {
+              name: "deck",
+              type: "array",
+              label: "Combat Deck",
+              labels: {
+                singular: 'Card',
+                plural: 'Cards'
+              },
+              admin: {
+                description: "The cards included in this Ranger's specific deck.",
+              },
+              fields: [
+                {
+                  name: "card",
+                  type: "relationship",
+                  relationTo: "cards",
+                  required: true,
+                  label: "Card",
+                },
+                {
+                  name: "count",
+                  type: "number",
+                  required: true,
+                  min: 1,
+                  defaultValue: 1,
+                  label: "Count in Deck",
+                  admin: {
+                    description: "How many copies of this card are in the deck.",
+                    step: 1,
+                  },
+                },
+                {
+                  name: "overrideName",
+                  type: "text",
+                  label: "Override Name",
+                },
+                // TODO: override image
+              ],
+            },
+          ]
         },
-      ],
-    },
-    {
-      name: "deck",
-      type: "array",
-      label: "Combat Deck",
-      admin: {
-        description: "The cards included in this Ranger's specific deck.",
-      },
-      fields: [
         {
-          name: "card",
-          type: "relationship",
-          relationTo: "cards",
-          required: true,
-          label: "Card",
-        },
-        {
-          name: "count",
-          type: "number",
-          required: true,
-          min: 1,
-          defaultValue: 1,
-          label: "Count in Deck",
-          admin: {
-            description: "How many copies of this card are in the deck.",
-            step: 1,
-          },
-        },
-      ],
-    },
-    {
-      name: "isAlly",
-      type: "checkbox",
-      label: "Is Ally?",
-      defaultValue: false,
-      admin: {
-        description:
-          "Check if this character is an Ally (like Alpha 5, Ninjor) rather than a primary Ranger.",
-      },
-    },
-    // --- Fields for specific Ranger mechanics ---
-    {
-      name: "keyDeckRangerType", // For Super Megaforce Silver
-      type: "select",
-      label: "Key Deck Ranger Type (Super Megaforce Silver)",
-      options: [
-        { label: "Not Applicable", value: "na" },
-        { label: "Sixth Ranger", value: "sixth" },
-        { label: "Core Team", value: "core" },
-        // Add other categories if needed
-      ],
-      defaultValue: "na",
-      admin: {
-        description:
-          "Specifies the type of Rangers for Super Megaforce Silver's key deck construction.",
-      },
+          label: 'Preview',
+          fields: [
+            {
+              name: "preview",
+              type: "ui",
+              admin: {
+
+              }
+            },
+          ]
+        }
+      ]
     },
   ],
 };

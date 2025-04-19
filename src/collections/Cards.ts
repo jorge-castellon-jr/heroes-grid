@@ -4,7 +4,6 @@ export const Cards: CollectionConfig = {
   slug: "cards",
   admin: {
     useAsTitle: "name",
-    description: "Individual combat cards used by Rangers.",
     defaultColumns: ["name", "type", "energyCost", "shields"],
   },
   access: {
@@ -12,90 +11,121 @@ export const Cards: CollectionConfig = {
   },
   fields: [
     {
-      name: "name",
-      type: "text",
-      required: true,
-      index: true,
-      label: "Card Name",
-    },
-    {
-      name: "energyCost",
-      type: "text", // Using text because cost can be 'X'
-      required: true,
-      label: "Energy Cost",
-    },
-    {
-      name: "type",
-      type: "select",
-      required: true,
-      options: ["ATTACK", "MANEUVER", "REACTION"],
-      label: "Card Type",
-    },
-    {
-      name: "shields",
-      type: "number",
-      required: true,
-      label: "Shield Value",
-    },
-    {
-      name: "attack",
-      type: "text", // Covers dice notation ("Two Dice"), special values ("SPECIAL"), and fixed hits ("2 [HIT]")
-      label: "Attack Value / Dice",
-    },
-    {
-      name: "description",
-      type: "textarea",
-      label: "Card Description / Effect Text",
-    },
-    {
-      name: "iconAbility",
-      type: "group",
-      label: "Icon Ability (Optional)",
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: "icon",
-          type: "text",
-          label: "Icon Symbol",
-          admin: {
-            description: "e.g., ★, 王, [GIFT], [CHROMAFURY]",
-          },
+          label: 'Basic Information',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: "energyCost",
+                  type: "select",
+                  required: true,
+                  label: "Energy Cost",
+                  options: ['X', '0', '1', '2', '3', '4'],
+                  admin: {
+                    width: '20%'
+                  }
+                },
+                {
+                  name: "name",
+                  type: "text",
+                  required: true,
+                  index: true,
+                  label: "Card Name",
+                },
+              ]
+            },
+            // TODO: media will go here
+            {
+              name: "type",
+              type: "select",
+              required: true,
+              options: ["ATTACK", "ATTACK: SPECIAL", "MANEUVER", "REACTION"],
+              label: "Card Type",
+            },
+            {
+              name: "description",
+              type: "textarea",
+              label: "Card Description / Effect Text",
+            },
+            {
+              name: "shields",
+              type: "select",
+              options: ['0', '1', '2', '3'],
+              required: true,
+              label: "Shield Value",
+            },
+            {
+              type: 'row',
+              admin: {
+                condition: (_, siblingData) => siblingData?.type === "ATTACK",
+              },
+              fields: [
+                {
+                  name: "attackDice",
+                  type: "number", // Covers dice notation ("Two Dice"), special values ("SPECIAL"), and fixed hits ("2 [HIT]")
+                  label: "Attack Dice",
+                  admin: {
+                    description: "How many Dice?",
+                  },
+                },
+                {
+                  name: "attackHit",
+                  type: "number", // Covers dice notation ("Two Dice"), special values ("SPECIAL"), and fixed hits ("2 [HIT]")
+                  label: "Hit Value",
+                  admin: {
+                    description: "How much flat damage?",
+                  },
+                },
+              ]
+            }
+          ]
+
         },
         {
-          name: "description",
-          type: "textarea",
-          label: "Icon Ability Description",
+          label: 'Icon Ability',
+          fields: [
+            {
+              name: "iconAbility",
+              type: "group",
+              label: "Icon Ability (Optional)",
+              fields: [
+                {
+                  name: "icon",
+                  type: "select",
+                  label: "Icon Symbol",
+                  options: [
+                    { label: '★ STAR', value: 'STAR' },
+                    { label: '王 KING', value: 'KING' },
+                    'GIFT'
+                  ],
+                },
+                {
+                  name: "description",
+                  type: "textarea",
+                  label: "Icon Ability Description",
+                },
+              ],
+            },
+          ]
         },
-      ],
-    },
-    // --- Special Flags/Fields for specific card types ---
-    {
-      name: "isKeyCard",
-      type: "checkbox",
-      label: "Is Key Card?",
-      admin: {
-        description:
-          "Check if this card belongs to a Super Megaforce Silver key deck.",
-      },
-    },
-    {
-      name: "giftEffect", // Specific to Santa Claus cards
-      type: "textarea",
-      label: "Gift Effect",
-      admin: {
-        condition: (_, siblingData) => siblingData?.iconAbility?.icon === "[GIFT]",
-        description: "The effect triggered when this card is revealed as a gift.",
-      },
-    },
-    {
-      name: "chromafuryIcons", // Specific to Dino Fury keys
-      type: "number",
-      label: "Number of Chromafury Icons",
-      admin: {
-        condition: (_, siblingData) =>
-          siblingData?.iconAbility?.icon === "[CHROMAFURY]",
-        description: "How many Chromafury icons are on this Dino Key.",
-      },
-    },
+        {
+          label: 'Preview',
+          fields: [
+            {
+              name: "preview",
+              type: "ui",
+              admin: {
+
+              }
+            },
+          ]
+        }
+      ]
+    }
   ],
 };
 

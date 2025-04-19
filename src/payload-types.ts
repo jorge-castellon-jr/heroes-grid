@@ -124,8 +124,6 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Represents individual Power Ranger characters and their variants.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "rangers".
  */
@@ -135,22 +133,33 @@ export interface Ranger {
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
   name: string;
+  title: string;
+  abilityName: string;
+  ability: string;
+  isOncePerTurn?: boolean | null;
   team: number | Team;
+  color:
+    | 'red'
+    | 'blue'
+    | 'black'
+    | 'yellow'
+    | 'pink'
+    | 'green'
+    | 'white'
+    | 'gold'
+    | 'silver'
+    | 'shadow'
+    | 'crimson'
+    | 'navy'
+    | 'orange'
+    | 'purple'
+    | 'zenith'
+    | 'dark';
+  type: 'core' | 'sixth' | 'extra' | 'ally';
   /**
-   * e.g., Red, Yellow, Ally, Gold, Purple.
+   * Descriptive title on bottom of each card
    */
-  color: string;
-  /**
-   * Descriptive title below the name (e.g., Mighty Morphin Red, Loyal Robot).
-   */
-  subtext?: string | null;
-  abilities?:
-    | {
-        name: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  cardTitle?: string | null;
   /**
    * The cards included in this Ranger's specific deck.
    */
@@ -161,17 +170,10 @@ export interface Ranger {
          * How many copies of this card are in the deck.
          */
         count: number;
+        overrideName?: string | null;
         id?: string | null;
       }[]
     | null;
-  /**
-   * Check if this character is an Ally (like Alpha 5, Ninjor) rather than a primary Ranger.
-   */
-  isAlly?: boolean | null;
-  /**
-   * Specifies the type of Rangers for Super Megaforce Silver's key deck construction.
-   */
-  keyDeckRangerType?: ('na' | 'sixth' | 'core') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -191,44 +193,32 @@ export interface Team {
   createdAt: string;
 }
 /**
- * Individual combat cards used by Rangers.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "cards".
  */
 export interface Card {
   id: number;
+  energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
-  energyCost: string;
-  type: 'ATTACK' | 'MANEUVER' | 'REACTION';
-  shields: number;
-  attack?: string | null;
+  type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
   description?: string | null;
+  shields: '0' | '1' | '2' | '3';
+  /**
+   * How many Dice?
+   */
+  attackDice?: number | null;
+  /**
+   * How much flat damage?
+   */
+  attackHit?: number | null;
   iconAbility?: {
-    /**
-     * e.g., ★, 王, [GIFT], [CHROMAFURY]
-     */
-    icon?: string | null;
+    icon?: ('STAR' | 'KING' | 'GIFT') | null;
     description?: string | null;
   };
-  /**
-   * Check if this card belongs to a Super Megaforce Silver key deck.
-   */
-  isKeyCard?: boolean | null;
-  /**
-   * The effect triggered when this card is revealed as a gift.
-   */
-  giftEffect?: string | null;
-  /**
-   * How many Chromafury icons are on this Dino Key.
-   */
-  chromafuryIcons?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
- * Individual Zords associated with Rangers.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "zords".
  */
@@ -236,25 +226,21 @@ export interface Zord {
   id: number;
   name: string;
   team: (number | Team)[];
+  ability: string;
+  isAny?: boolean | null;
+  whichAnyTeam?: (number | null) | Team;
   /**
    * e.g., Dino Zords, Thunder Zords, Ninjazord System, Other MMPR Zords.
    */
-  type: string;
-  /**
-   * The descriptive text indicating which Ranger(s) use this Zord (e.g., 'Mighty Morphin Red', 'Any Mighty Morphin Ranger').
-   */
-  rangerAssociation?: string | null;
+  subcategory?: string | null;
   /**
    * Direct link to Ranger entries that can use this Zord. Based on the 'rangers' array in source data.
    */
-  compatibleRangers?: (number | Ranger)[] | null;
-  ability: string;
+  compatibleRangers: (number | Ranger)[];
   updatedAt: string;
   createdAt: string;
 }
 /**
- * Combined Megazord formations.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "megazords".
  */
@@ -385,25 +371,22 @@ export interface PayloadMigration {
  */
 export interface RangersSelect<T extends boolean = true> {
   name?: T;
+  title?: T;
+  abilityName?: T;
+  ability?: T;
+  isOncePerTurn?: T;
   team?: T;
   color?: T;
-  subtext?: T;
-  abilities?:
-    | T
-    | {
-        name?: T;
-        description?: T;
-        id?: T;
-      };
+  type?: T;
+  cardTitle?: T;
   deck?:
     | T
     | {
         card?: T;
         count?: T;
+        overrideName?: T;
         id?: T;
       };
-  isAlly?: T;
-  keyDeckRangerType?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -421,21 +404,19 @@ export interface TeamsSelect<T extends boolean = true> {
  * via the `definition` "cards_select".
  */
 export interface CardsSelect<T extends boolean = true> {
-  name?: T;
   energyCost?: T;
+  name?: T;
   type?: T;
-  shields?: T;
-  attack?: T;
   description?: T;
+  shields?: T;
+  attackDice?: T;
+  attackHit?: T;
   iconAbility?:
     | T
     | {
         icon?: T;
         description?: T;
       };
-  isKeyCard?: T;
-  giftEffect?: T;
-  chromafuryIcons?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -446,10 +427,11 @@ export interface CardsSelect<T extends boolean = true> {
 export interface ZordsSelect<T extends boolean = true> {
   name?: T;
   team?: T;
-  type?: T;
-  rangerAssociation?: T;
-  compatibleRangers?: T;
   ability?: T;
+  isAny?: T;
+  whichAnyTeam?: T;
+  subcategory?: T;
+  compatibleRangers?: T;
   updatedAt?: T;
   createdAt?: T;
 }
