@@ -1,0 +1,192 @@
+/* Import a cool font (optional) - Example: Orbitron */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+body {
+  background-color: #1a1a1a; /* Dark background for contrast */
+  color: #f0f0f0;
+  font-family: 'Arial', sans-serif; /* Fallback font */
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #ffd700; /* Gold color for title */
+  font-family: 'Orbitron', sans-serif; /* Thematic font */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --- 5 Column Grid --- */
+.rangers-grid {
+  display: grid;
+  /* Creates 5 equal-width columns */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px; /* Space between cards */
+  padding: 10px;
+}
+
+/* --- Ranger Card Styling --- */
+.ranger-card {
+  /* Use CSS variables set inline by the component */
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.2)
+  ); /* Subtle gradient */
+  border: 3px solid var(--ranger-color, #ccc); /* Color border! */
+  border-radius: 10px;
+  padding: 15px;
+  color: var(--text-color, #333); /* Text color based on background */
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative; /* Needed for pseudo-elements if added */
+  overflow: hidden; /* Hide overflow from potential effects */
+  min-height: 280px; /* Ensure cards have a minimum height */
+}
+
+.ranger-card:hover {
+  transform: translateY(-5px) scale(1.03); /* Lift effect on hover */
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.4),
+    0 0 15px var(--ranger-color); /* Glow effect */
+}
+
+/* Optional: Add a color swatch/lightning bolt */
+.ranger-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--ranger-color, #ccc);
+  transform: rotate(45deg);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.card-header,
+.card-body,
+.card-footer {
+  position: relative; /* Ensure content is above pseudo-elements */
+  z-index: 1;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-header h3 {
+  margin: 5px 0;
+  font-family: 'Orbitron', sans-serif; /* Thematic font */
+  font-size: 1.3em;
+  color: var(--ranger-color); /* Use ranger color for name */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.card-header .ranger-title {
+  font-size: 0.9em;
+  font-style: italic;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.ranger-type {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: var(--ranger-color);
+  color: var(--text-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-body {
+  flex-grow: 1; /* Allows body to fill space */
+  margin-bottom: 10px;
+}
+
+.card-body h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: var(--ranger-color); /* Ability name in ranger color */
+}
+
+.card-body p {
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.once-per-turn {
+  font-weight: bold;
+  color: #ffcc00; /* Gold/Yellow for emphasis */
+  font-size: 0.85em !important;
+}
+
+.card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+/* --- Responsive Adjustments --- */
+/* Example: 3 columns for tablets */
+@media (max-width: 1200px) {
+  .rangers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Example: 2 columns for smaller tablets/large phones */
+@media (max-width: 768px) {
+  .rangers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ranger-card {
+    min-height: 250px; /* Adjust height */
+  }
+  .card-header h3 {
+    font-size: 1.1em;
+  }
+}
+
+/* Example: 1 column for small phones */
+@media (max-width: 480px) {
+  .rangers-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .page-container {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 1.8em;
+  }
+}
