@@ -26,6 +26,9 @@ importers:
       graphql:
         specifier: ^16.8.1
         version: 16.10.0
+      libsql:
+        specifier: ^0.5.7
+        version: 0.5.7
       next:
         specifier: 15.3.0
         version: 15.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4)
@@ -63,6 +66,9 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
+      turbo:
+        specifier: ^2.5.0
+        version: 2.5.0
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -1108,8 +1114,18 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@libsql/darwin-arm64@0.5.7':
+    resolution: {integrity: sha512-3rex2cdEihYY5HIxOvn66CxdvEtjQDXyrX+EggaV3Qf4vZOWeow+jIqVjZoNLmfb7AwJuSL088G645zyMitcbQ==}
+    cpu: [arm64]
+    os: [darwin]
+
   '@libsql/darwin-x64@0.4.7':
     resolution: {integrity: sha512-ezc7V75+eoyyH07BO9tIyJdqXXcRfZMbKcLCeF8+qWK5nP8wWuMcfOVywecsXGRbT99zc5eNra4NEx6z5PkSsA==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@libsql/darwin-x64@0.5.7':
+    resolution: {integrity: sha512-OEJPm0G+s+MZhBpf5TNTj9ODRPwIiBjtrHJoYNsGm0fPZM62wdHryLAGqu6gl4IuQ+e4GzC3c5c8J0lu4u6p+A==}
     cpu: [x64]
     os: [darwin]
 
@@ -1128,8 +1144,18 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@libsql/linux-arm64-gnu@0.5.7':
+    resolution: {integrity: sha512-86PusgAOzxu8e/8YCxwdbi8/6HkBRWW49FCXgAqVjlDaNC/08jSQy7XnIZuRqHYRNg9uXk3fZ+Nug/6kbEqH5Q==}
+    cpu: [arm64]
+    os: [linux]
+
   '@libsql/linux-arm64-musl@0.4.7':
     resolution: {integrity: sha512-6kK9xAArVRlTCpWeqnNMCoXW1pe7WITI378n4NpvU5EJ0Ok3aNTIC2nRPRjhro90QcnmLL1jPcrVwO4WD1U0xw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@libsql/linux-arm64-musl@0.5.7':
+    resolution: {integrity: sha512-KSNrF4wd7xqQQYx12PrF808QhX5oL+EwvzippvDs/NNJWSM035AwCG0z2t7tqNVTZWaN6MVuRGbMlhQDCFj66w==}
     cpu: [arm64]
     os: [linux]
 
@@ -1138,13 +1164,28 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@libsql/linux-x64-gnu@0.5.7':
+    resolution: {integrity: sha512-gMHAKtn2UuIJdFU1DeHD2CgIEhT5OZFJtyyTFXNVs2A4VZmjlOmss+QVANO59cO4/3E4MnJQ1KyJF4fbBNp9fw==}
+    cpu: [x64]
+    os: [linux]
+
   '@libsql/linux-x64-musl@0.4.7':
     resolution: {integrity: sha512-nI6tpS1t6WzGAt1Kx1n1HsvtBbZ+jHn0m7ogNNT6pQHZQj7AFFTIMeDQw/i/Nt5H38np1GVRNsFe99eSIMs9XA==}
     cpu: [x64]
     os: [linux]
 
+  '@libsql/linux-x64-musl@0.5.7':
+    resolution: {integrity: sha512-qh6nLCZ+YI6fKRCR525Ryw/LHd7vNvi/A7hhPtlwewYkxUumNsz7t9kwTlhXFlYmBNmOYP/FfaP+vj5CHvZvrQ==}
+    cpu: [x64]
+    os: [linux]
+
   '@libsql/win32-x64-msvc@0.4.7':
     resolution: {integrity: sha512-7pJzOWzPm6oJUxml+PCDRzYQ4A1hTMHAciTAHfFK4fkbDZX33nWPVG7Y3vqdKtslcwAzwmrNDc6sXy2nwWnbiw==}
+    cpu: [x64]
+    os: [win32]
+
+  '@libsql/win32-x64-msvc@0.5.7':
+    resolution: {integrity: sha512-66c5bN2UF6rnuvzxgRLRkrAXMlv2aNYivPjMa175M0IVbFB3XQl1joOL2hO4/HxijL5xHf7xYJxs7X6HvpiG7Q==}
     cpu: [x64]
     os: [win32]
 
@@ -2886,6 +2927,12 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
+    os: [darwin, linux, win32]
+
+  libsql@0.5.7:
+    resolution: {integrity: sha512-YbWW3YsGZl6PrBRNAtUVuMLqKRqYcYPa/QqhQCuR67SlcOHIhJ11ksTLAHxXkDRJs6kSrzr9JgGJGJQ91e1Bww==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lines-and-columns@1.2.4:
@@ -3695,6 +3742,40 @@ packages:
 
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
+
+  turbo-darwin-64@2.5.0:
+    resolution: {integrity: sha512-fP1hhI9zY8hv0idym3hAaXdPi80TLovmGmgZFocVAykFtOxF+GlfIgM/l4iLAV9ObIO4SUXPVWHeBZQQ+Hpjag==}
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.5.0:
+    resolution: {integrity: sha512-p9sYq7kXH7qeJwIQE86cOWv/xNqvow846l6c/qWc26Ib1ci5W7V0sI5thsrP3eH+VA0d+SHalTKg5SQXgNQBWA==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.5.0:
+    resolution: {integrity: sha512-1iEln2GWiF3iPPPS1HQJT6ZCFXynJPd89gs9SkggH2EJsj3eRUSVMmMC8y6d7bBbhBFsiGGazwFIYrI12zs6uQ==}
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.5.0:
+    resolution: {integrity: sha512-bKBcbvuQHmsX116KcxHJuAcppiiBOfivOObh2O5aXNER6mce7YDDQJy00xQQNp1DhEfcSV2uOsvb3O3nN2cbcA==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-windows-64@2.5.0:
+    resolution: {integrity: sha512-9BCo8oQ7BO7J0K913Czbc3tw8QwLqn2nTe4E47k6aVYkM12ASTScweXPTuaPFP5iYXAT6z5Dsniw704Ixa5eGg==}
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.5.0:
+    resolution: {integrity: sha512-OUHCV+ueXa3UzfZ4co/ueIHgeq9B2K48pZwIxKSm5VaLVuv8M13MhM7unukW09g++dpdrrE1w4IOVgxKZ0/exg==}
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.5.0:
+    resolution: {integrity: sha512-PvSRruOsitjy6qdqwIIyolv99+fEn57gP6gn4zhsHTEcCYgXPhv6BAxzAjleS8XKpo+Y582vTTA9nuqYDmbRuA==}
+    hasBin: true
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -5189,7 +5270,13 @@ snapshots:
   '@libsql/darwin-arm64@0.4.7':
     optional: true
 
+  '@libsql/darwin-arm64@0.5.7':
+    optional: true
+
   '@libsql/darwin-x64@0.4.7':
+    optional: true
+
+  '@libsql/darwin-x64@0.5.7':
     optional: true
 
   '@libsql/hrana-client@0.7.0':
@@ -5215,16 +5302,31 @@ snapshots:
   '@libsql/linux-arm64-gnu@0.4.7':
     optional: true
 
+  '@libsql/linux-arm64-gnu@0.5.7':
+    optional: true
+
   '@libsql/linux-arm64-musl@0.4.7':
+    optional: true
+
+  '@libsql/linux-arm64-musl@0.5.7':
     optional: true
 
   '@libsql/linux-x64-gnu@0.4.7':
     optional: true
 
+  '@libsql/linux-x64-gnu@0.5.7':
+    optional: true
+
   '@libsql/linux-x64-musl@0.4.7':
     optional: true
 
+  '@libsql/linux-x64-musl@0.5.7':
+    optional: true
+
   '@libsql/win32-x64-msvc@0.4.7':
+    optional: true
+
+  '@libsql/win32-x64-msvc@0.5.7':
     optional: true
 
   '@monaco-editor/loader@1.5.0':
@@ -7361,6 +7463,19 @@ snapshots:
       '@libsql/linux-x64-musl': 0.4.7
       '@libsql/win32-x64-msvc': 0.4.7
 
+  libsql@0.5.7:
+    dependencies:
+      '@neon-rs/load': 0.0.4
+      detect-libc: 2.0.2
+    optionalDependencies:
+      '@libsql/darwin-arm64': 0.5.7
+      '@libsql/darwin-x64': 0.5.7
+      '@libsql/linux-arm64-gnu': 0.5.7
+      '@libsql/linux-arm64-musl': 0.5.7
+      '@libsql/linux-x64-gnu': 0.5.7
+      '@libsql/linux-x64-musl': 0.5.7
+      '@libsql/win32-x64-msvc': 0.5.7
+
   lines-and-columns@1.2.4: {}
 
   locate-path@6.0.0:
@@ -8456,6 +8571,33 @@ snapshots:
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  turbo-darwin-64@2.5.0:
+    optional: true
+
+  turbo-darwin-arm64@2.5.0:
+    optional: true
+
+  turbo-linux-64@2.5.0:
+    optional: true
+
+  turbo-linux-arm64@2.5.0:
+    optional: true
+
+  turbo-windows-64@2.5.0:
+    optional: true
+
+  turbo-windows-arm64@2.5.0:
+    optional: true
+
+  turbo@2.5.0:
+    optionalDependencies:
+      turbo-darwin-64: 2.5.0
+      turbo-darwin-arm64: 2.5.0
+      turbo-linux-64: 2.5.0
+      turbo-linux-arm64: 2.5.0
+      turbo-windows-64: 2.5.0
+      turbo-windows-arm64: 2.5.0
 
   type-check@0.4.0:
     dependencies:
