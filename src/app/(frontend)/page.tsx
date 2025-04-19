@@ -36,7 +36,6 @@ export default async function HomePage() {
             className="admin"
             href={payloadConfig.routes.admin}
             rel="noopener noreferrer"
-            target="_blank"
           >
             Go to admin panel
           </a>

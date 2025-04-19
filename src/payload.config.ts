@@ -2,6 +2,7 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -25,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Rangers, Teams, Cards, Zords, Megazords, Users, Media],
+  collections: [Rangers, Teams, Cards, Zords, Megazords, Media, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -42,4 +43,10 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  email: resendAdapter({
+    defaultFromAddress: 'heroesgrid@castellon.dev',
+    defaultFromName: 'Heroes Grid - Payload CMS',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
+
 })

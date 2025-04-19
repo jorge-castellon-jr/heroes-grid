@@ -5,9 +5,44 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  access: {
+    create: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+    read: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+    update: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+    delete: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+    admin: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+    unlock: ({ req: { user } }) => {
+      if (!user) return false
+      return user.type === 'super'
+    },
+  },
   auth: true,
   fields: [
-    // Email added by default
-    // Add more fields as needed
-  ],
+    {
+      name: "type",
+      type: "select",
+      label: "User Type",
+      required: true,
+      options: [
+        { label: 'Super Admin', value: 'super' },
+        { label: 'Admin', value: 'admin' },
+        { label: 'User', value: 'user' },
+      ],
+    }
+  ]
 }
