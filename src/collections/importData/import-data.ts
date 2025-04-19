@@ -15,6 +15,7 @@ const JSON_DATA_PATH = path.resolve(__dirname, "data.json")
 
 
 // --- Helper: Parse Team String ---
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function parseTeams(teamString: string, teamMap: any) {
   if (!teamString) return []
   const teamNames = teamString.split(/\s+or\s+/i) // Split by " or "

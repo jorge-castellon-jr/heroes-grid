@@ -144,6 +144,7 @@ export async function importCardsAction(): Promise<{
           foundCount++
         } else {
           // Prepare payload based on your snippet's structure
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const cardPayload: any = { // Use 'any' for flexibility or refine type
             name: cardData.name,
             // Cast to specific select types defined in your Cards collection
