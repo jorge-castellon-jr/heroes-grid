@@ -5,7 +5,7 @@ const nextConfig = {
   // Your Next.js config here
   experimental: {
     // Add @libsql/client here
-    serverExternalPackages: ["@libsql/client"],
+    serverExternalPackages: ["@libsql/client", "libsql"],
   },
 }
 
