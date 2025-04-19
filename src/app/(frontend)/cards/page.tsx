@@ -27,7 +27,6 @@ export default async function CardsPage() {
       <h1>Card Library</h1>
       {cards.length > 0 ? (
         <div className="cards-grid">
-          {' '}
           {/* Reusing the grid class or create a new one */}
           {cards.map((card) => (
             <CardDisplay key={card.id} card={card} />
