@@ -15,6 +15,7 @@ import { Teams } from './collections/Team'
 import { RangerCards as RangerCards } from './collections/RangerCards'
 import { Zords } from './collections/Zords'
 import { Megazords } from './collections/Megazords'
+import { Tags } from './collections/Tags'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Rangers, Teams, RangerCards, Zords, Megazords, Media, Users],
+  collections: [Rangers, Teams, RangerCards, Zords, Megazords, Tags, Media, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

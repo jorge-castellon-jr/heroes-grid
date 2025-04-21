@@ -72,6 +72,7 @@ export interface Config {
     rangerCards: RangerCard;
     zords: Zord;
     megazords: Megazord;
+    tags: Tag;
     media: Media;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
@@ -85,6 +86,7 @@ export interface Config {
     rangerCards: RangerCardsSelect<false> | RangerCardsSelect<true>;
     zords: ZordsSelect<false> | ZordsSelect<true>;
     megazords: MegazordsSelect<false> | MegazordsSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -158,6 +160,7 @@ export interface Ranger {
     | 'dark';
   type: 'core' | 'sixth' | 'extra' | 'ally';
   source: 'official' | 'tough' | 'user';
+  tags?: (number | null) | Tag;
   /**
    * Descriptive title on bottom of each card
    */
@@ -191,6 +194,17 @@ export interface Team {
   /**
    * The official name of the Power Rangers team/season.
    */
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  status: 'draft' | 'published';
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -323,6 +337,10 @@ export interface PayloadLockedDocument {
         value: number | Megazord;
       } | null)
     | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -387,6 +405,7 @@ export interface RangersSelect<T extends boolean = true> {
   color?: T;
   type?: T;
   source?: T;
+  tags?: T;
   cardTitle?: T;
   deck?:
     | T
@@ -456,6 +475,16 @@ export interface MegazordsSelect<T extends boolean = true> {
   name?: T;
   team?: T;
   ability?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  status?: T;
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }

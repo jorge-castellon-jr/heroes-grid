@@ -84,9 +84,6 @@ export const Rangers: CollectionConfig = {
                   relationTo: "teams",
                   required: true,
                   label: "Team",
-                  admin: {
-                    width: '50%',
-                  }
                 },
                 {
                   name: "color",
@@ -95,32 +92,43 @@ export const Rangers: CollectionConfig = {
                   options: rangerColorOptions, // Use the dynamically generated options
                   label: "Color",
                 },
+                {
+                  name: "type",
+                  type: "select",
+                  label: "Ranger Type",
+                  required: true,
+                  options: [
+                    { label: "Core Team", value: "core" },
+                    { label: "Sixth Ranger", value: "sixth" },
+                    { label: "Extra Ranger", value: "extra" },
+                    { label: "Ally", value: "ally" },
+                  ],
+                },
               ]
             },
             {
-              name: "type",
-              type: "select",
-              label: "Ranger Type",
-              required: true,
-              options: [
-                { label: "Core Team", value: "core" },
-                { label: "Sixth Ranger", value: "sixth" },
-                { label: "Extra Ranger", value: "extra" },
-                { label: "Ally", value: "ally" },
-              ],
-            },
-            {
-              name: "source",
-              type: "select",
-              label: "Source",
-              required: true,
-              defaultValue: 'official',
-              options: [
-                { label: "Official", value: "official" },
-                { label: "TOUGH", value: "tough" },
-                { label: "User Creation", value: "user" },
-              ],
-            },
+              type: 'row',
+              fields: [
+                {
+                  name: "source",
+                  type: "select",
+                  label: "Source",
+                  required: true,
+                  defaultValue: 'official',
+                  options: [
+                    { label: "Official", value: "official" },
+                    { label: "TOUGH", value: "tough" },
+                    { label: "User Creation", value: "user" },
+                  ],
+                },
+                {
+                  name: "tags",
+                  type: "relationship",
+                  relationTo: "tags",
+                  label: "Tags",
+                },
+              ]
+            }
           ]
         },
         {
