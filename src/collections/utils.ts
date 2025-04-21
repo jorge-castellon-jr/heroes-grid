@@ -28,5 +28,6 @@ export const collectionDefaults: CollectionConfig['fields'] = [
     name: 'expansion',
     type: 'relationship',
     relationTo: 'expansions',
+    required: true
   }
 ]

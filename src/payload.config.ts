@@ -24,6 +24,8 @@ import { Seasons } from './collections/rangers/Seasons'
 import { Enemies } from './collections/enemy/Enemies'
 import { Expansions } from './collections/Expansions'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { ArsenalCards } from './collections/rangers/ArsenalCards'
+import { UniqueCombatCards } from './collections/rangers/UniqueCombatCards'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,17 +40,20 @@ export default buildConfig({
   collections: [
     // Rangers
     Rangers,
-    Teams,
     RangerCards,
     Zords,
     Megazords,
-    Seasons,
+    ArsenalCards,
+    UniqueCombatCards,
+
 
     // Enemies
     Enemies,
 
     // Other
     Expansions,
+    Teams,
+    Seasons,
     Tags,
     Media,
     Users
