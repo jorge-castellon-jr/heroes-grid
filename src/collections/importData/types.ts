@@ -52,18 +52,18 @@ export interface RangerData {
   "abilities": Ability[],
   "deck": CardData[]
 }
-interface Zords {
-  "name": string,
-  "team": string,
-  "ability": string
-}
-interface Megazords {
+export interface ZordData {
   "name": string,
   "team": string,
   "ability": string
   "type": string,
   "ranger": string,
   "rangers": string[]
+}
+export interface MegazordData {
+  "name": string,
+  "team": string,
+  "ability": string
 }
 
 export interface Dataset {
@@ -72,7 +72,7 @@ export interface Dataset {
   "rawText": string,
   "parsedData": {
     rangers: RangerData[],
-    zords: Zords[],
-    megazords: Megazords[]
+    zords: ZordData[],
+    megazords: MegazordData[]
   }
 }
