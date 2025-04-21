@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-export const Cards: CollectionConfig = {
-  slug: "cards",
+export const RangerCards: CollectionConfig = {
+  slug: "rangerCards",
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "type", "energyCost", "shields"],

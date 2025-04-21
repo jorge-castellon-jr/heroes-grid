@@ -23,7 +23,7 @@ export const Rangers: CollectionConfig = {
   slug: "rangers",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "subtext", "team", "color"],
+    defaultColumns: ["name", "title", "team", "color"],
   },
   access: {
     read: () => true, // Publicly readable
@@ -135,7 +135,7 @@ export const Rangers: CollectionConfig = {
                 {
                   name: "card",
                   type: "relationship",
-                  relationTo: "cards",
+                  relationTo: "rangerCards",
                   required: true,
                   label: "Card",
                 },

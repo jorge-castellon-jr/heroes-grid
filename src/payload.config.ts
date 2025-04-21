@@ -12,7 +12,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Rangers } from './collections/Rangers'
 import { Teams } from './collections/Team'
-import { Cards } from './collections/Cards'
+import { RangerCards as RangerCards } from './collections/RangerCards'
 import { Zords } from './collections/Zords'
 import { Megazords } from './collections/Megazords'
 
@@ -26,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Rangers, Teams, Cards, Zords, Megazords, Media, Users],
+  collections: [Rangers, Teams, RangerCards, Zords, Megazords, Media, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

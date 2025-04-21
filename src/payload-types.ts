@@ -69,7 +69,7 @@ export interface Config {
   collections: {
     rangers: Ranger;
     teams: Team;
-    cards: Card;
+    rangerCards: RangerCard;
     zords: Zord;
     megazords: Megazord;
     media: Media;
@@ -82,7 +82,7 @@ export interface Config {
   collectionsSelect: {
     rangers: RangersSelect<false> | RangersSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
-    cards: CardsSelect<false> | CardsSelect<true>;
+    rangerCards: RangerCardsSelect<false> | RangerCardsSelect<true>;
     zords: ZordsSelect<false> | ZordsSelect<true>;
     megazords: MegazordsSelect<false> | MegazordsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -165,7 +165,7 @@ export interface Ranger {
    */
   deck?:
     | {
-        card: number | Card;
+        card: number | RangerCard;
         /**
          * How many copies of this card are in the deck.
          */
@@ -194,9 +194,9 @@ export interface Team {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cards".
+ * via the `definition` "rangerCards".
  */
-export interface Card {
+export interface RangerCard {
   id: number;
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
@@ -305,8 +305,8 @@ export interface PayloadLockedDocument {
         value: number | Team;
       } | null)
     | ({
-        relationTo: 'cards';
-        value: number | Card;
+        relationTo: 'rangerCards';
+        value: number | RangerCard;
       } | null)
     | ({
         relationTo: 'zords';
@@ -402,9 +402,9 @@ export interface TeamsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cards_select".
+ * via the `definition` "rangerCards_select".
  */
-export interface CardsSelect<T extends boolean = true> {
+export interface RangerCardsSelect<T extends boolean = true> {
   energyCost?: T;
   name?: T;
   type?: T;
