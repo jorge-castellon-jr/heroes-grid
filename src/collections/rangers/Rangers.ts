@@ -89,9 +89,9 @@ export const Rangers: CollectionConfig = {
                 },
                 {
                   name: "color",
-                  type: "select", // Changed from 'text' to 'select'
+                  type: "select",
                   required: true,
-                  options: rangerColorOptions, // Use the dynamically generated options
+                  options: rangerColorOptions,
                   label: "Color",
                 },
                 {
