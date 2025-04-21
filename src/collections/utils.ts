@@ -12,7 +12,6 @@ export const collectionDefaults: CollectionConfig['fields'] = [
       { label: 'Published', value: 'published' },
     ],
   },
-
   {
     name: "source",
     type: "select",
@@ -25,4 +24,9 @@ export const collectionDefaults: CollectionConfig['fields'] = [
       { label: "User Creation", value: "user" },
     ],
   },
+  {
+    name: 'expansion',
+    type: 'relationship',
+    relationTo: 'expansions',
+  }
 ]

@@ -22,6 +22,7 @@ import { Seasons } from './collections/rangers/Seasons'
 
 // Enemies
 import { Enemies } from './collections/enemy/Enemies'
+import { Expansions } from './collections/Expansions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -46,6 +47,7 @@ export default buildConfig({
     Enemies,
 
     // Other
+    Expansions,
     Tags,
     Media,
     Users

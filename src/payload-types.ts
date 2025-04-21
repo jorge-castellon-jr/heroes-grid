@@ -74,6 +74,7 @@ export interface Config {
     megazords: Megazord;
     seasons: Season;
     enemies: Enemy;
+    expansions: Expansion;
     tags: Tag;
     media: Media;
     users: User;
@@ -90,6 +91,7 @@ export interface Config {
     megazords: MegazordsSelect<false> | MegazordsSelect<true>;
     seasons: SeasonsSelect<false> | SeasonsSelect<true>;
     enemies: EnemiesSelect<false> | EnemiesSelect<true>;
+    expansions: ExpansionsSelect<false> | ExpansionsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -137,6 +139,7 @@ export interface Ranger {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -187,6 +190,28 @@ export interface Ranger {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expansions".
+ */
+export interface Expansion {
+  id: number;
+  status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
+  name: string;
+  /**
+   * List of URLs for things like where to buy, more info and such
+   */
+  urls?:
+    | {
+        label: string;
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Represents a Power Rangers team (e.g., Mighty Morphin Ninja, Zeo).
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -196,6 +221,7 @@ export interface Team {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   /**
    * The official name of the Power Rangers team.
    */
@@ -214,6 +240,7 @@ export interface Season {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   /**
    * The official name of the Power Rangers season.
    */
@@ -229,6 +256,7 @@ export interface Tag {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -241,6 +269,7 @@ export interface RangerCard {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
@@ -269,6 +298,7 @@ export interface Zord {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -293,6 +323,7 @@ export interface Megazord {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -307,6 +338,7 @@ export interface Enemy {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -402,6 +434,10 @@ export interface PayloadLockedDocument {
         value: number | Enemy;
       } | null)
     | ({
+        relationTo: 'expansions';
+        value: number | Expansion;
+      } | null)
+    | ({
         relationTo: 'tags';
         value: number | Tag;
       } | null)
@@ -462,6 +498,7 @@ export interface PayloadMigration {
 export interface RangersSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   title?: T;
   abilityName?: T;
@@ -490,6 +527,7 @@ export interface RangersSelect<T extends boolean = true> {
 export interface TeamsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   season?: T;
   updatedAt?: T;
@@ -502,6 +540,7 @@ export interface TeamsSelect<T extends boolean = true> {
 export interface RangerCardsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   energyCost?: T;
   name?: T;
   type?: T;
@@ -525,6 +564,7 @@ export interface RangerCardsSelect<T extends boolean = true> {
 export interface ZordsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   team?: T;
   ability?: T;
@@ -542,6 +582,7 @@ export interface ZordsSelect<T extends boolean = true> {
 export interface MegazordsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   team?: T;
   ability?: T;
@@ -555,6 +596,7 @@ export interface MegazordsSelect<T extends boolean = true> {
 export interface SeasonsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -566,6 +608,7 @@ export interface SeasonsSelect<T extends boolean = true> {
 export interface EnemiesSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   monsterType?: T;
   season?: T;
@@ -584,11 +627,30 @@ export interface EnemiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expansions_select".
+ */
+export interface ExpansionsSelect<T extends boolean = true> {
+  status?: T;
+  source?: T;
+  name?: T;
+  urls?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tags_select".
  */
 export interface TagsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
+  expansion?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
