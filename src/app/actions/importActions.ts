@@ -7,7 +7,8 @@ import path from "path"
 import fs from "fs/promises"
 
 // Adjust paths as needed
-import type { Dataset, CardData, RangerData } from "@/collections/importData/types"
+import type { Dataset, CardData, ZordData, MegazordData } from "@/collections/importData/types"
+import { Megazord, Zord } from "@/payload-types"
 // Import helpers IF your provided logic snippets rely on them (e.g., capitalize)
 // import { capitalize, getRangerType } from "@/collections/importData/helpers"
 
@@ -313,41 +314,182 @@ export async function importRangersAction(): Promise<{
 
 // --- Action: Import Zords (Placeholder - Add your logic here) ---
 export async function importZordsAction(): Promise<{ success: boolean; message: string }> {
-  console.warn("--- ACTION: Import Zords - Not Implemented Yet ---");
-  // TODO: Add logic similar to the other actions, using your specific Zord import requirements.
-  // You will need to:
-  // 1. Get Payload instance.
-  // 2. Load JSON data.
-  // 3. Fetch existing Teams (and potentially Rangers) into maps for relationship lookups.
-  // 4. Iterate through jsonData.datasets[...].parsedData.zords.
-  // 5. For each zordData:
-  //    a. Find existing zord by name.
-  //    b. If not found:
-  //       i. Look up Team IDs using parseTeams helper.
-  //       ii. Look up compatibleRanger IDs using findRangerIds helper.
-  //       iii. Construct the zordPayload matching your Zords collection schema.
-  //       iv. Call payload.create.
-  //    c. Handle errors.
-  // 6. Return success/message.
-  return { success: true, message: "Zord import action needs to be implemented." };
+  console.warn("--- ACTION: Import Zords ---");
+  let payload: Payload | null = null
+  try {
+    payload = await getPayload({ config: await configPromise })
+    const jsonData = await loadJsonData()
+    if (!jsonData) throw new Error("Failed to load JSON data.")
+
+    const teamMap = new Map<string, number>()
+    const allTeams = await payload.find({ collection: "teams", limit: 1000, depth: 0, pagination: false })
+    allTeams.docs.forEach((t) => teamMap.set(t.name, t.id))
+
+    const rangerMap = new Map<string, number>()
+    const allRangers = await payload.find({ collection: "rangers", limit: 1000, depth: 0, pagination: false })
+    allRangers.docs.forEach((t) => rangerMap.set(`${t.name}--${t.abilityName}`, t.id))
+
+    let createdCount = 0
+    let skippedCount = 0
+    let foundCount = 0
+
+    // --- Logic from your import-cards.ts snippet ---
+    const uniqueCards = new Map<string, ZordData>() // Use CardData type
+    const jsonZords = jsonData.datasets.find(d => d.label === 'Zords')
+    if (!jsonZords) throw new Error("Could not find the Zords dataset")
+
+    jsonZords.parsedData.zords.forEach((zord) => {
+      if (!uniqueCards.has(zord.name)) {
+        uniqueCards.set(zord.name, zord)
+      }
+    })
+
+    for (const [zordName, zordData] of uniqueCards) {
+      console.log(`Zord: ${zordName}`)
+      try {
+        const existing = await payload.find({
+          collection: "zords",
+          where: { name: { equals: zordName } },
+          limit: 1,
+          depth: 0,
+        })
+
+        if (existing.docs.length > 0) {
+          console.log(`Zord found: ${zordName} (ID: ${existing.docs[0].id})`)
+          foundCount++
+        } else {
+          console.log(`Creating Zord: ${zordName}`)
+          const teams = zordData.team.split(' or ')
+          const currentTeams = teams.map((z) => teamMap.get(z)).filter((z) => !!z)
+          if (!teams.length && teams.length > currentTeams.length) {
+            console.log(`Zord skipped: ${zordName}  could not find team ${zordData.team}`, currentTeams)
+            skippedCount++
+            continue
+          }
+
+          const rangers = zordData.rangers
+          const compatibleRangers = rangers.map((r) => rangerMap.get(r)).filter((r) => !!r)
+          if (!rangers.length && rangers.length > compatibleRangers.length) {
+            console.log(`Zord skipped: ${zordName}  could not find team ${zordData.team}`, currentTeams)
+            skippedCount++
+            continue
+          }
+
+
+          const zordPayload: Omit<Zord, 'id' | 'updatedAt' | 'createdAt'> = {
+            name: zordData.name,
+            team: currentTeams as number[],
+            ability: zordData.ability,
+            compatibleRangers: compatibleRangers as number[],
+            isAny: zordData.ranger.toLowerCase().includes('any'),
+            whichAnyTeam: teamMap.get(zordData.ranger.replace('Any', '').replace('Ranger', '').trim()),
+            subcategory: zordData.type,
+          }
+
+          await payload.create({
+            collection: "zords",
+            data: zordPayload,
+          })
+          // console.log(`Card created: ${cardName} (ID: ${newCard.id})`)
+          createdCount++
+        }
+      } catch (error) {
+        console.error(
+          `Error processing card ${zordData.name}: ${error}`,
+          JSON.stringify(zordData, null, 2)
+        )
+      }
+    }
+    // --- End of logic from your import-cards.ts snippet ---
+
+    const message = `Zord import finished. Found: ${foundCount}, Created: ${createdCount}, Skipped: ${skippedCount}.`
+    console.log(message)
+    return { success: true, message }
+  } catch (error) {
+    console.error("Error during card import action:", error)
+    return { success: false, message: `Zord import failed: ${error}` }
+  }
 }
 
 // --- Action: Import Megazords (Placeholder - Add your logic here) ---
 export async function importMegazordsAction(): Promise<{ success: boolean; message: string }> {
   console.warn("--- ACTION: Import Megazords - Not Implemented Yet ---");
-  // TODO: Add logic similar to the other actions, using your specific Megazord import requirements.
-  // You will need to:
-  // 1. Get Payload instance.
-  // 2. Load JSON data.
-  // 3. Fetch existing Teams into a map.
-  // 4. Iterate through jsonData.datasets[...].parsedData.megazords.
-  // 5. For each megazordData:
-  //    a. Find existing megazord by name.
-  //    b. If not found:
-  //       i. Look up Team IDs using parseTeams helper.
-  //       ii. Construct the megazordPayload matching your Megazords collection schema.
-  //       iii. Call payload.create.
-  //    c. Handle errors.
-  // 6. Return success/message.
-  return { success: true, message: "Megazord import action needs to be implemented." };
+  let payload: Payload | null = null
+  try {
+    payload = await getPayload({ config: await configPromise })
+    const jsonData = await loadJsonData()
+    if (!jsonData) throw new Error("Failed to load JSON data.")
+
+    const teamMap = new Map<string, number>()
+    const allTeams = await payload.find({ collection: "teams", limit: 1000, depth: 0, pagination: false })
+    allTeams.docs.forEach((t) => teamMap.set(t.name, t.id))
+
+    let createdCount = 0
+    let skippedCount = 0
+    let foundCount = 0
+
+    // --- Logic from your import-cards.ts snippet ---
+    const uniqueCards = new Map<string, MegazordData>() // Use CardData type
+    const jsonZords = jsonData.datasets.find(d => d.label === 'Megazords')
+    if (!jsonZords) throw new Error("Could not find the Zords dataset")
+
+    jsonZords.parsedData.megazords.forEach((megazord) => {
+      if (!uniqueCards.has(megazord.name)) {
+        uniqueCards.set(megazord.name, megazord)
+      }
+    })
+
+    for (const [megazordName, megazordData] of uniqueCards) {
+      console.log(`Megaord: ${megazordName}`)
+      try {
+        const existing = await payload.find({
+          collection: "megazords",
+          where: { name: { equals: megazordName } },
+          limit: 1,
+          depth: 0,
+        })
+
+        if (existing.docs.length > 0) {
+          console.log(`Megaord found: ${megazordName} (ID: ${existing.docs[0].id})`)
+          foundCount++
+        } else {
+          console.log(`Creating Megazord: ${megazordName}`)
+          const teams = megazordData.team.split(' or ')
+          const currentTeams = teams.map((z) => teamMap.get(z)).filter((z) => !!z)
+          if (!teams.length && teams.length > currentTeams.length) {
+            console.log(`Megazord skipped: ${megazordName}  could not find team ${megazordData.team}`, currentTeams)
+            skippedCount++
+            continue
+          }
+
+
+          const zordPayload: Omit<Megazord, 'id' | 'updatedAt' | 'createdAt'> = {
+            name: megazordData.name,
+            team: currentTeams as number[],
+            ability: megazordData.ability,
+          }
+
+          await payload.create({
+            collection: "megazords",
+            data: zordPayload,
+          })
+          // console.log(`Card created: ${cardName} (ID: ${newCard.id})`)
+          createdCount++
+        }
+      } catch (error) {
+        console.error(
+          `Error processing card ${megazordData.name}: ${error}`,
+          JSON.stringify(megazordData, null, 2)
+        )
+      }
+    }
+    // --- End of logic from your import-cards.ts snippet ---
+
+    const message = `Megazord import finished. Found: ${foundCount}, Created: ${createdCount}, Skipped: ${skippedCount}.`
+    console.log(message)
+    return { success: true, message }
+  } catch (error) {
+    console.error("Error during card import action:", error)
+    return { success: false, message: `Megazord import failed: ${error}` }
+  }
 }
