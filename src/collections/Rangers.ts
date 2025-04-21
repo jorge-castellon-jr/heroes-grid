@@ -71,9 +71,9 @@ export const Rangers: CollectionConfig = {
               label: "Ability Text",
             },
             {
-              name: "isOncePerTurn",
+              name: "isOncePerBattle",
               type: "checkbox",
-              label: "Is the ability once per turn?",
+              label: "Is the ability once per battle?",
             },
             {
               type: 'row',
@@ -107,6 +107,18 @@ export const Rangers: CollectionConfig = {
                 { label: "Sixth Ranger", value: "sixth" },
                 { label: "Extra Ranger", value: "extra" },
                 { label: "Ally", value: "ally" },
+              ],
+            },
+            {
+              name: "source",
+              type: "select",
+              label: "Source",
+              required: true,
+              defaultValue: 'official',
+              options: [
+                { label: "Official", value: "official" },
+                { label: "TOUGH", value: "tough" },
+                { label: "User Creation", value: "user" },
               ],
             },
           ]

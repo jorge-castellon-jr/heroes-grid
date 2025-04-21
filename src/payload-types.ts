@@ -137,7 +137,7 @@ export interface Ranger {
   title: string;
   abilityName: string;
   ability: string;
-  isOncePerTurn?: boolean | null;
+  isOncePerBattle?: boolean | null;
   team: number | Team;
   color:
     | 'red'
@@ -157,6 +157,7 @@ export interface Ranger {
     | 'zenith'
     | 'dark';
   type: 'core' | 'sixth' | 'extra' | 'ally';
+  source: 'official' | 'tough' | 'user';
   /**
    * Descriptive title on bottom of each card
    */
@@ -381,10 +382,11 @@ export interface RangersSelect<T extends boolean = true> {
   title?: T;
   abilityName?: T;
   ability?: T;
-  isOncePerTurn?: T;
+  isOncePerBattle?: T;
   team?: T;
   color?: T;
   type?: T;
+  source?: T;
   cardTitle?: T;
   deck?:
     | T
