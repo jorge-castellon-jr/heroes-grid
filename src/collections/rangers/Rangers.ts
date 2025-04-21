@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { collectionDefaults } from './utils';
+import { collectionDefaults } from '../utils';
 
 const rangerColorOptions = [
   { label: 'Red', value: 'red' },

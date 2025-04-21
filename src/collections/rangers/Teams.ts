@@ -1,11 +1,11 @@
 import type { CollectionConfig } from 'payload'
-import { collectionDefaults } from './utils';
+import { collectionDefaults } from '../utils';
 
 export const Teams: CollectionConfig = {
   slug: "teams",
   admin: {
     useAsTitle: "name",
-    description: "Represents a Power Rangers team season (e.g., Mighty Morphin, Zeo).",
+    description: "Represents a Power Rangers team (e.g., Mighty Morphin Ninja, Zeo).",
     defaultColumns: ["name", "status"],
   },
   access: {
@@ -20,8 +20,14 @@ export const Teams: CollectionConfig = {
       unique: true,
       label: "Team Name",
       admin: {
-        description: "The official name of the Power Rangers team/season.",
+        description: "The official name of the Power Rangers team.",
       },
+    },
+    {
+      name: "season",
+      type: "relationship",
+      relationTo: "seasons",
+      label: "Season",
     },
   ],
 };

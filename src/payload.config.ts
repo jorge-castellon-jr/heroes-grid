@@ -10,12 +10,18 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import { Rangers } from './collections/Rangers'
-import { Teams } from './collections/Team'
-import { RangerCards as RangerCards } from './collections/RangerCards'
-import { Zords } from './collections/Zords'
-import { Megazords } from './collections/Megazords'
 import { Tags } from './collections/Tags'
+
+// Rangers
+import { Rangers } from './collections/rangers/Rangers'
+import { Teams } from './collections/rangers/Teams'
+import { RangerCards } from './collections/rangers/RangerCards'
+import { Zords } from './collections/rangers/Zords'
+import { Megazords } from './collections/rangers/Megazords'
+import { Seasons } from './collections/rangers/Seasons'
+
+// Enemies
+import { Enemies } from './collections/enemy/Enemies'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +33,23 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Rangers, Teams, RangerCards, Zords, Megazords, Tags, Media, Users],
+  collections: [
+    // Rangers
+    Rangers,
+    Teams,
+    RangerCards,
+    Zords,
+    Megazords,
+    Seasons,
+
+    // Enemies
+    Enemies,
+
+    // Other
+    Tags,
+    Media,
+    Users
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

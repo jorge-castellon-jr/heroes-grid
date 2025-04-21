@@ -1,0 +1,27 @@
+import type { CollectionConfig } from 'payload'
+import { collectionDefaults } from '../utils';
+
+export const Seasons: CollectionConfig = {
+  slug: "seasons",
+  admin: {
+    useAsTitle: "name",
+    description: "Represents a Power Rangers team season (e.g., Mighty Morphin, Zeo).",
+    defaultColumns: ["name", "status"],
+  },
+  access: {
+    read: () => true, // Publicly readable
+  },
+  fields: [
+    ...collectionDefaults,
+    {
+      name: "name",
+      type: "text",
+      required: true,
+      unique: true,
+      label: "Season Name",
+      admin: {
+        description: "The official name of the Power Rangers season.",
+      },
+    },
+  ],
+};

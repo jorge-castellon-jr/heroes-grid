@@ -72,6 +72,8 @@ export interface Config {
     rangerCards: RangerCard;
     zords: Zord;
     megazords: Megazord;
+    seasons: Season;
+    enemies: Enemy;
     tags: Tag;
     media: Media;
     users: User;
@@ -86,6 +88,8 @@ export interface Config {
     rangerCards: RangerCardsSelect<false> | RangerCardsSelect<true>;
     zords: ZordsSelect<false> | ZordsSelect<true>;
     megazords: MegazordsSelect<false> | MegazordsSelect<true>;
+    seasons: SeasonsSelect<false> | SeasonsSelect<true>;
+    enemies: EnemiesSelect<false> | EnemiesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -183,7 +187,7 @@ export interface Ranger {
   createdAt: string;
 }
 /**
- * Represents a Power Rangers team season (e.g., Mighty Morphin, Zeo).
+ * Represents a Power Rangers team (e.g., Mighty Morphin Ninja, Zeo).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "teams".
@@ -193,7 +197,25 @@ export interface Team {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   /**
-   * The official name of the Power Rangers team/season.
+   * The official name of the Power Rangers team.
+   */
+  name: string;
+  season?: (number | null) | Season;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Represents a Power Rangers team season (e.g., Mighty Morphin, Zeo).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seasons".
+ */
+export interface Season {
+  id: number;
+  status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
+  /**
+   * The official name of the Power Rangers season.
    */
   name: string;
   updatedAt: string;
@@ -279,6 +301,36 @@ export interface Megazord {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enemies".
+ */
+export interface Enemy {
+  id: number;
+  status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
+  /**
+   * The character's name (e.g., Jason Lee Scott, Alpha 5).
+   */
+  name: string;
+  monsterType: 'minion' | 'monster' | 'nemesis' | 'mastermind';
+  season: number | Season;
+  tags?: (number | null) | Tag;
+  /**
+   * The cards included in this Enemy's specific deck.
+   */
+  deck?:
+    | {
+        health: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+        name: string;
+        cardtype: ('FAST' | 'GUARD' | 'PASSIVE')[];
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
@@ -340,6 +392,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'megazords';
         value: number | Megazord;
+      } | null)
+    | ({
+        relationTo: 'seasons';
+        value: number | Season;
+      } | null)
+    | ({
+        relationTo: 'enemies';
+        value: number | Enemy;
       } | null)
     | ({
         relationTo: 'tags';
@@ -431,6 +491,7 @@ export interface TeamsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   name?: T;
+  season?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -484,6 +545,40 @@ export interface MegazordsSelect<T extends boolean = true> {
   name?: T;
   team?: T;
   ability?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seasons_select".
+ */
+export interface SeasonsSelect<T extends boolean = true> {
+  status?: T;
+  source?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enemies_select".
+ */
+export interface EnemiesSelect<T extends boolean = true> {
+  status?: T;
+  source?: T;
+  name?: T;
+  monsterType?: T;
+  season?: T;
+  tags?: T;
+  deck?:
+    | T
+    | {
+        health?: T;
+        name?: T;
+        cardtype?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
