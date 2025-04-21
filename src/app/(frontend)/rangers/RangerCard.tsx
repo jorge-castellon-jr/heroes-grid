@@ -41,8 +41,8 @@ const RangerCard: React.FC<RangerCardProps> = ({ ranger }) => {
       <div className="card-body">
         <h4>{ranger.abilityName}</h4>
         <p>{ranger.ability}</p>
-        {ranger.isOncePerTurn && (
-          <p className="once-per-turn">⚡ Once Per Turn</p>
+        {ranger.isOncePerBattle && (
+          <p className="once-per-turn">⚡ Once Per Battle</p>
         )}
       </div>
       {ranger.cardTitle && (

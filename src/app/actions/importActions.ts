@@ -81,7 +81,10 @@ export async function importTeamsAction(): Promise<{
         } else {
           await payload.create({
             collection: "teams",
-            data: { name: teamName, status: 'published' },
+            data: {
+              source: 'official',
+              name: teamName, status: 'published'
+            },
           })
           // console.log(`Team created: ${teamName} (ID: ${newTeam.id})`)
           createdCount++
@@ -269,6 +272,7 @@ export async function importRangersAction(): Promise<{
               }
 
               const rangerPayload: Omit<Ranger, 'id' | 'updatedAt' | 'createdAt'> = {
+                source: 'official',
                 name: rangerData.name,
                 team: teamId,
                 title: rangerData.cardTitle ? rangerData.cardTitle : rangerData.title,
@@ -278,7 +282,7 @@ export async function importRangersAction(): Promise<{
                 ability: uniqueRanger.description,
                 type: rangerData.type.toLowerCase() as 'core' | 'sixth' | 'extra' | 'ally',
                 deck: deckPayload,
-                isOncePerTurn: uniqueRanger.description.toLowerCase().includes('once per battle'),
+                isOncePerBattle: uniqueRanger.description.toLowerCase().includes('once per battle'),
                 status: 'published'
               }
 
@@ -378,6 +382,7 @@ export async function importZordsAction(): Promise<{ success: boolean; message: 
 
 
           const zordPayload: Omit<Zord, 'id' | 'updatedAt' | 'createdAt'> = {
+            source: 'official',
             name: zordData.name,
             team: currentTeams as number[],
             ability: zordData.ability,
@@ -466,6 +471,7 @@ export async function importMegazordsAction(): Promise<{ success: boolean; messa
 
 
           const zordPayload: Omit<Megazord, 'id' | 'updatedAt' | 'createdAt'> = {
+            source: 'official',
             name: megazordData.name,
             team: currentTeams as number[],
             ability: megazordData.ability,
