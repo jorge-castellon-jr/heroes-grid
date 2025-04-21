@@ -129,6 +129,7 @@ export interface UserAuthOperations {
  */
 export interface Ranger {
   id: number;
+  status: 'draft' | 'published';
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -185,6 +186,7 @@ export interface Ranger {
  */
 export interface Team {
   id: number;
+  status: 'draft' | 'published';
   /**
    * The official name of the Power Rangers team/season.
    */
@@ -198,6 +200,7 @@ export interface Team {
  */
 export interface RangerCard {
   id: number;
+  status: 'draft' | 'published';
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
@@ -224,6 +227,7 @@ export interface RangerCard {
  */
 export interface Zord {
   id: number;
+  status: 'draft' | 'published';
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -246,6 +250,7 @@ export interface Zord {
  */
 export interface Megazord {
   id: number;
+  status: 'draft' | 'published';
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -371,6 +376,7 @@ export interface PayloadMigration {
  * via the `definition` "rangers_select".
  */
 export interface RangersSelect<T extends boolean = true> {
+  status?: T;
   name?: T;
   title?: T;
   abilityName?: T;
@@ -396,6 +402,7 @@ export interface RangersSelect<T extends boolean = true> {
  * via the `definition` "teams_select".
  */
 export interface TeamsSelect<T extends boolean = true> {
+  status?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -405,6 +412,7 @@ export interface TeamsSelect<T extends boolean = true> {
  * via the `definition` "rangerCards_select".
  */
 export interface RangerCardsSelect<T extends boolean = true> {
+  status?: T;
   energyCost?: T;
   name?: T;
   type?: T;
@@ -426,6 +434,7 @@ export interface RangerCardsSelect<T extends boolean = true> {
  * via the `definition` "zords_select".
  */
 export interface ZordsSelect<T extends boolean = true> {
+  status?: T;
   name?: T;
   team?: T;
   ability?: T;
@@ -441,6 +450,7 @@ export interface ZordsSelect<T extends boolean = true> {
  * via the `definition` "megazords_select".
  */
 export interface MegazordsSelect<T extends boolean = true> {
+  status?: T;
   name?: T;
   team?: T;
   ability?: T;

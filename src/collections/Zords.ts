@@ -1,15 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { collectionDefaults } from './utils';
 
 export const Zords: CollectionConfig = {
   slug: "zords",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "team"],
+    defaultColumns: ["name", "team", "status"],
   },
   access: {
     read: () => true, // Publicly readable
   },
   fields: [
+    ...collectionDefaults,
     {
       type: 'tabs',
       tabs: [

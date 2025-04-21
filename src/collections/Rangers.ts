@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { collectionDefaults } from './utils';
 
 const rangerColorOptions = [
   { label: 'Red', value: 'red' },
@@ -23,12 +24,13 @@ export const Rangers: CollectionConfig = {
   slug: "rangers",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "title", "team", "color"],
+    defaultColumns: ["name", "title", "team", "color", "status"],
   },
   access: {
     read: () => true, // Publicly readable
   },
   fields: [
+    ...collectionDefaults,
     {
       type: 'tabs',
       tabs: [

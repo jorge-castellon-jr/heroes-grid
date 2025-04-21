@@ -1,15 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { collectionDefaults } from './utils';
 
 export const RangerCards: CollectionConfig = {
   slug: "rangerCards",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "type", "energyCost", "shields"],
+    defaultColumns: ["name", "type", "energyCost", "shields", "status"],
   },
   access: {
     read: () => true, // Publicly readable
   },
   fields: [
+    ...collectionDefaults,
     {
       type: 'tabs',
       tabs: [
@@ -66,7 +68,7 @@ export const RangerCards: CollectionConfig = {
               fields: [
                 {
                   name: "attackDice",
-                  type: "number", // Covers dice notation ("Two Dice"), special values ("SPECIAL"), and fixed hits ("2 [HIT]")
+                  type: "number",
                   label: "Attack Dice",
                   admin: {
                     description: "How many Dice?",
@@ -74,7 +76,7 @@ export const RangerCards: CollectionConfig = {
                 },
                 {
                   name: "attackHit",
-                  type: "number", // Covers dice notation ("Two Dice"), special values ("SPECIAL"), and fixed hits ("2 [HIT]")
+                  type: "number",
                   label: "Hit Value",
                   admin: {
                     description: "How much flat damage?",
@@ -83,7 +85,6 @@ export const RangerCards: CollectionConfig = {
               ]
             }
           ]
-
         },
         {
           label: 'Icon Ability',

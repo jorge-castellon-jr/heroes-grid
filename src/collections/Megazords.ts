@@ -1,15 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { collectionDefaults } from './utils';
 
 export const Megazords: CollectionConfig = {
   slug: "megazords",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "team"],
+    defaultColumns: ["name", "team", "status"],
   },
   access: {
     read: () => true, // Publicly readable
   },
   fields: [
+    ...collectionDefaults,
     {
       type: 'row',
       fields: [
