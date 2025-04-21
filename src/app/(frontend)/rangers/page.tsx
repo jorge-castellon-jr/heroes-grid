@@ -13,6 +13,9 @@ async function fetchRangers(payload: Payload): Promise<Ranger[]> {
     collection: 'rangers', // Assuming your collection is named 'rangers'
     limit: 100,
     depth: 1, // Ensure nested fields like 'team' (if object) or 'deck.card' are populated if needed
+    where: {
+      status: { equals: 'published' }
+    }
   });
   // Perform type assertion or validation if necessary
   return result.docs as Ranger[];

@@ -12,6 +12,9 @@ async function fetchCards(payload: Payload): Promise<RangerCard[]> {
     collection: 'rangerCards', // Ensure this is your collection slug for Cards
     limit: 100, // Adjust limit as needed, consider pagination for large sets
     depth: 0, // Usually 0 is fine if Card has no nested relationships to populate
+    where: {
+      status: { equals: 'published' }
+    }
   });
   return result.docs as RangerCard[];
 }

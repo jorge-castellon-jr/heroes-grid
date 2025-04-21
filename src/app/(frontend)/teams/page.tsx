@@ -10,6 +10,9 @@ async function fetchTeams(payload: Payload): Promise<Team[]> {
     collection: 'teams',
     limit: 100,
     depth: 0,
+    where: {
+      status: { equals: 'published' }
+    }
   });
   return result.docs as Team[];
 }
