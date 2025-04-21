@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url'
 import config from '@/payload.config'
 import './styles.css'
 import Link from 'next/link'
-import { ImportButtons } from './ImportButtons'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -68,7 +67,6 @@ export default async function HomePage() {
             View Rangers
           </Link>
         </div>
-        <ImportButtons />
       </div>
       <div className="footer">
         <p>Update this page by editing</p>
