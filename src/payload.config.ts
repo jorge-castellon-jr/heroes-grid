@@ -23,6 +23,7 @@ import { Seasons } from './collections/rangers/Seasons'
 // Enemies
 import { Enemies } from './collections/enemy/Enemies'
 import { Expansions } from './collections/Expansions'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -66,7 +67,19 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET ?? '',
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
+        },
+        region: 'auto',
+      },
+    }),
   ],
   email: resendAdapter({
     defaultFromAddress: 'heroesgrid@castellon.dev',
