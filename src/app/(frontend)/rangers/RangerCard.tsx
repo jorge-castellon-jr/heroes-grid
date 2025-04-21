@@ -21,6 +21,8 @@ const rangerColorStyles: Record<Ranger['color'], React.CSSProperties> = {
   purple: { '--ranger-color': '#800080' },
   zenith: { '--ranger-color': '#ADA9EC' },
   dark: { '--ranger-color': '#1C1C1C' },
+  aqua: { '--ranger-color': '#0078F0' },
+  graphite: { '--ranger-color': '#C0C0C0' },
 };
 
 interface RangerCardProps {
