@@ -8,7 +8,7 @@ import fs from "fs/promises"
 
 // Adjust paths as needed
 import type { Dataset, CardData, ZordData, MegazordData } from "@/collections/importData/types"
-import { Megazord, Zord } from "@/payload-types"
+import { Megazord, Ranger, Zord } from "@/payload-types"
 // Import helpers IF your provided logic snippets rely on them (e.g., capitalize)
 // import { capitalize, getRangerType } from "@/collections/importData/helpers"
 
@@ -81,7 +81,7 @@ export async function importTeamsAction(): Promise<{
         } else {
           await payload.create({
             collection: "teams",
-            data: { name: teamName },
+            data: { name: teamName, status: 'published' },
           })
           // console.log(`Team created: ${teamName} (ID: ${newTeam.id})`)
           createdCount++
@@ -134,7 +134,7 @@ export async function importCardsAction(): Promise<{
         // *** Using the find logic YOU provided: finding by DESCRIPTION ***
         // *** This is unusual - normally you'd find by NAME. Verify this is intended. ***
         const existing = await payload.find({
-          collection: "cards",
+          collection: "rangerCards",
           where: { description: { equals: cardDesc } }, // Changed back to find by NAME - your code had description which is likely wrong
           limit: 1,
           depth: 0,
@@ -169,7 +169,7 @@ export async function importCardsAction(): Promise<{
 
 
           await payload.create({
-            collection: "cards",
+            collection: "rangerCards",
             data: cardPayload,
           })
           // console.log(`Card created: ${cardName} (ID: ${newCard.id})`)
@@ -210,7 +210,7 @@ export async function importRangersAction(): Promise<{
     allTeams.docs.forEach((t) => teamMap.set(t.name, t.id))
 
     const cardMap = new Map<string, { id: number; name: string }>()
-    const allCards = await payload.find({ collection: "cards", limit: 3000, depth: 0, pagination: false }) // Adjust limit
+    const allCards = await payload.find({ collection: "rangerCards", limit: 3000, depth: 0, pagination: false }) // Adjust limit
     allCards.docs.forEach((c) => cardMap.set(c.description ? c.description : c.name, { id: c.id, name: c.name }))
 
     let createdCount = 0
@@ -268,7 +268,7 @@ export async function importRangersAction(): Promise<{
                 })
               }
 
-              const rangerPayload = {
+              const rangerPayload: Omit<Ranger, 'id' | 'updatedAt' | 'createdAt'> = {
                 name: rangerData.name,
                 team: teamId,
                 title: rangerData.cardTitle ? rangerData.cardTitle : rangerData.title,
@@ -278,7 +278,8 @@ export async function importRangersAction(): Promise<{
                 ability: uniqueRanger.description,
                 type: rangerData.type.toLowerCase() as 'core' | 'sixth' | 'extra' | 'ally',
                 deck: deckPayload,
-                isOncePerTurn: uniqueRanger.description.toLowerCase().includes('once per battle')
+                isOncePerTurn: uniqueRanger.description.toLowerCase().includes('once per battle'),
+                status: 'published'
               }
 
               const newRanger = await payload.create({
@@ -384,6 +385,7 @@ export async function importZordsAction(): Promise<{ success: boolean; message: 
             isAny: zordData.ranger.toLowerCase().includes('any'),
             whichAnyTeam: teamMap.get(zordData.ranger.replace('Any', '').replace('Ranger', '').trim()),
             subcategory: zordData.type,
+            status: 'published'
           }
 
           await payload.create({
@@ -467,6 +469,7 @@ export async function importMegazordsAction(): Promise<{ success: boolean; messa
             name: megazordData.name,
             team: currentTeams as number[],
             ability: megazordData.ability,
+            status: 'published'
           }
 
           await payload.create({
