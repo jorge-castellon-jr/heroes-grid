@@ -165,7 +165,9 @@ export interface Ranger {
     | 'orange'
     | 'purple'
     | 'zenith'
-    | 'dark';
+    | 'dark'
+    | 'aqua'
+    | 'graphite';
   type: 'core' | 'sixth' | 'extra' | 'ally';
   tags?: (number | null) | Tag;
   /**

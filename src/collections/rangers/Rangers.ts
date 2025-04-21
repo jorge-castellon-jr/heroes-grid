@@ -18,6 +18,8 @@ const rangerColorOptions = [
   { label: 'Purple', value: 'purple' },
   { label: 'Zenith', value: 'zenith' },
   { label: 'Dark', value: 'dark' },
+  { label: 'Aqua', value: 'aqua' },
+  { label: 'Graphite', value: 'graphite' },
 ]
 
 export const Rangers: CollectionConfig = {
