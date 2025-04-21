@@ -1,7 +1,8 @@
 "use client"
-import { importCardsAction, importRangersAction, importTeamsAction } from '../actions/importActions'
+import { importCardsAction, importMegazordsAction, importRangersAction, importTeamsAction, importZordsAction } from '../actions/importActions'
 
 export function ImportButtons() {
+  return <></>
   return (
     <div className="links" style={{ marginTop: 20 }}>
       <p><u>Import:</u></p>
@@ -23,6 +24,18 @@ export function ImportButtons() {
         onClick={importRangersAction}
       >
         Rangers
+      </a>
+      <a
+        className="docs"
+        onClick={importZordsAction}
+      >
+        Zords
+      </a>
+      <a
+        className="docs"
+        onClick={importMegazordsAction}
+      >
+        Megazords
       </a>
     </div>
   )
