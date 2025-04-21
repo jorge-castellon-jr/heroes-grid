@@ -107,28 +107,11 @@ export const Rangers: CollectionConfig = {
               ]
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  name: "source",
-                  type: "select",
-                  label: "Source",
-                  required: true,
-                  defaultValue: 'official',
-                  options: [
-                    { label: "Official", value: "official" },
-                    { label: "TOUGH", value: "tough" },
-                    { label: "User Creation", value: "user" },
-                  ],
-                },
-                {
-                  name: "tags",
-                  type: "relationship",
-                  relationTo: "tags",
-                  label: "Tags",
-                },
-              ]
-            }
+              name: "tags",
+              type: "relationship",
+              relationTo: "tags",
+              label: "Tags",
+            },
           ]
         },
         {

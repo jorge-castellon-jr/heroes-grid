@@ -132,6 +132,7 @@ export interface UserAuthOperations {
 export interface Ranger {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -159,7 +160,6 @@ export interface Ranger {
     | 'zenith'
     | 'dark';
   type: 'core' | 'sixth' | 'extra' | 'ally';
-  source: 'official' | 'tough' | 'user';
   tags?: (number | null) | Tag;
   /**
    * Descriptive title on bottom of each card
@@ -191,6 +191,7 @@ export interface Ranger {
 export interface Team {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   /**
    * The official name of the Power Rangers team/season.
    */
@@ -205,6 +206,7 @@ export interface Team {
 export interface Tag {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -216,6 +218,7 @@ export interface Tag {
 export interface RangerCard {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
@@ -243,6 +246,7 @@ export interface RangerCard {
 export interface Zord {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -266,6 +270,7 @@ export interface Zord {
 export interface Megazord {
   id: number;
   status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -396,6 +401,7 @@ export interface PayloadMigration {
  */
 export interface RangersSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   name?: T;
   title?: T;
   abilityName?: T;
@@ -404,7 +410,6 @@ export interface RangersSelect<T extends boolean = true> {
   team?: T;
   color?: T;
   type?: T;
-  source?: T;
   tags?: T;
   cardTitle?: T;
   deck?:
@@ -424,6 +429,7 @@ export interface RangersSelect<T extends boolean = true> {
  */
 export interface TeamsSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -434,6 +440,7 @@ export interface TeamsSelect<T extends boolean = true> {
  */
 export interface RangerCardsSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   energyCost?: T;
   name?: T;
   type?: T;
@@ -456,6 +463,7 @@ export interface RangerCardsSelect<T extends boolean = true> {
  */
 export interface ZordsSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   name?: T;
   team?: T;
   ability?: T;
@@ -472,6 +480,7 @@ export interface ZordsSelect<T extends boolean = true> {
  */
 export interface MegazordsSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   name?: T;
   team?: T;
   ability?: T;
@@ -484,6 +493,7 @@ export interface MegazordsSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   status?: T;
+  source?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
