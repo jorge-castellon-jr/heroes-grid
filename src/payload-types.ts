@@ -346,6 +346,7 @@ export interface Enemy {
    */
   name: string;
   monsterType: 'minion' | 'monster' | 'nemesis' | 'mastermind';
+  nemesisEffect?: string | null;
   season: number | Season;
   tags?: (number | null) | Tag;
   /**
@@ -613,6 +614,7 @@ export interface EnemiesSelect<T extends boolean = true> {
   expansion?: T;
   name?: T;
   monsterType?: T;
+  nemesisEffect?: T;
   season?: T;
   tags?: T;
   deck?:

@@ -24,9 +24,8 @@ export const Enemies: CollectionConfig = {
               name: "name",
               type: "text",
               required: true,
-              label: "Ranger Name",
+              label: "Enemy Name",
               admin: {
-                width: '50%',
                 description: "The character's name (e.g., Jason Lee Scott, Alpha 5).",
               },
             },
@@ -41,6 +40,15 @@ export const Enemies: CollectionConfig = {
                 { label: "Mastermind", value: 'mastermind' },
               ],
               label: "Monster Type",
+            },
+            {
+              name: "nemesisEffect",
+              type: "textarea",
+              required: true,
+              label: "Nemesis Effect",
+              admin: {
+                condition: (_, siblingData) => siblingData?.monsterType === "nemesis",
+              },
             },
             {
               name: "season",
