@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card } from '@/payload-types'; // Assuming Card interface is here
+import { RangerCard } from '@/payload-types'; // Assuming Card interface is here
 
 // Helper function or object for icons (same as before or customize)
 const getIcon = (iconName: 'STAR' | 'KING' | 'GIFT') => {
@@ -17,12 +17,12 @@ const getIcon = (iconName: 'STAR' | 'KING' | 'GIFT') => {
 };
 
 // Helper to add specific classes based on type for styling
-const getTypeClass = (type: Card['type']) => {
+const getTypeClass = (type: RangerCard['type']) => {
   return `type-${type.replace(/[:\s]/g, '')}`; // Remove colons/spaces for CSS class
 };
 
 interface CardDisplayProps {
-  card: Card;
+  card: RangerCard;
 }
 
 const CardDisplay: React.FC<CardDisplayProps> = ({ card }) => {

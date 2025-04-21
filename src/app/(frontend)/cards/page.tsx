@@ -4,23 +4,23 @@ import React from 'react';
 
 import config from '@/payload.config';
 import CardDisplay from './CardDisplay'; // Import the new card component
-import { Card } from '@/payload-types'; // Import the Card interface
+import { RangerCard } from '@/payload-types'; // Import the Card interface
 
 // Type assertion for the fetched data
-async function fetchCards(payload: Payload): Promise<Card[]> {
+async function fetchCards(payload: Payload): Promise<RangerCard[]> {
   const result = await payload.find({
-    collection: 'cards', // Ensure this is your collection slug for Cards
+    collection: 'rangerCards', // Ensure this is your collection slug for Cards
     limit: 100, // Adjust limit as needed, consider pagination for large sets
     depth: 0, // Usually 0 is fine if Card has no nested relationships to populate
   });
-  return result.docs as Card[];
+  return result.docs as RangerCard[];
 }
 
 export default async function CardsPage() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
 
-  const cards: Card[] = await fetchCards(payload);
+  const cards: RangerCard[] = await fetchCards(payload);
 
   return (
     <div className="page-container">
