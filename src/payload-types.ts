@@ -512,7 +512,7 @@ export interface Enemy {
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
   name: string;
-  monsterType: 'minion' | 'monster' | 'nemesis' | 'mastermind';
+  monsterType: 'minion' | 'monster' | 'nemesis' | 'boss';
   nemesisEffect?: string | null;
   season: number | Season;
   tags?: (number | null) | Tag;

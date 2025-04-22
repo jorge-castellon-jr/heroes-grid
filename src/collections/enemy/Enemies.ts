@@ -7,7 +7,7 @@ export const Enemies: CollectionConfig = {
   slug: "enemies",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "title", "team", "color", "status"],
+    defaultColumns: ["name", "monsterType", "team", "color", "status"],
   },
   access: {
     read: () => true, // Publicly readable
@@ -37,7 +37,7 @@ export const Enemies: CollectionConfig = {
                 { label: "Minion", value: 'minion' },
                 { label: "Monster", value: 'monster' },
                 { label: "Nemesis", value: 'nemesis' },
-                { label: "Mastermind", value: 'mastermind' },
+                { label: "Boss", value: 'boss' },
               ],
               label: "Monster Type",
             },
