@@ -192,6 +192,17 @@ export const Rangers: CollectionConfig = {
           ]
         },
         {
+          label: 'Zords',
+          fields: [
+            {
+              name: "zords",
+              type: "join",
+              collection: 'zords',
+              on: 'compatibleRangers'
+            },
+          ]
+        },
+        {
           label: 'Preview',
           fields: [
             {

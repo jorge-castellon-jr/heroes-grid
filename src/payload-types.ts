@@ -85,6 +85,12 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    rangers: {
+      zords: 'zords';
+    };
+    rangerCards: {
+      rangers: 'rangers';
+    };
     teams: {
       rangers: 'rangers';
     };
@@ -213,6 +219,11 @@ export interface Ranger {
         id?: string | null;
       }[]
     | null;
+  zords?: {
+    docs?: (number | Zord)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -336,6 +347,11 @@ export interface RangerCard {
   iconAbility?: {
     icon?: ('STAR' | 'KING' | 'GIFT') | null;
     description?: string | null;
+  };
+  rangers?: {
+    docs?: (number | Ranger)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
   };
   updatedAt: string;
   createdAt: string;
@@ -717,6 +733,7 @@ export interface RangersSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  zords?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -748,6 +765,7 @@ export interface RangerCardsSelect<T extends boolean = true> {
         icon?: T;
         description?: T;
       };
+  rangers?: T;
   updatedAt?: T;
   createdAt?: T;
 }

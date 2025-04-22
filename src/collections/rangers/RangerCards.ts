@@ -114,6 +114,17 @@ export const RangerCards: CollectionConfig = {
           ]
         },
         {
+          label: 'Rangers',
+          fields: [
+            {
+              name: "rangers",
+              type: "join",
+              collection: 'rangers',
+              on: 'deck.card'
+            },
+          ]
+        },
+        {
           label: 'Preview',
           fields: [
             {
