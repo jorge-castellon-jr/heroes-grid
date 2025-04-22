@@ -29,7 +29,7 @@
 body {
   background-color: #1a1a1a; /* Dark background for contrast */
   color: #f0f0f0;
-  font-family: 'Arial', sans-serif; /* Fallback font */
+  font-family: 'Orbitron', 'Arial', sans-serif; /* Fallback font */
   margin: 0;
   padding: 0;
 }
@@ -61,8 +61,15 @@ body {
     justify-content: center;
     flex-grow: 1;
 
+
     h1 {
       text-align: center;
+      color: #ffd700; /* Gold color for title */
+      font-family: 'Orbitron', sans-serif; /* Thematic font */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
     .links {
       display: flex;
@@ -91,13 +98,13 @@ body {
 }
 
 h1 {
-  text-align: center;
-  color: #ffd700; /* Gold color for title */
-  font-family: 'Orbitron', sans-serif; /* Thematic font */
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  @apply text-4xl font-black;
+}
+h2 {
+  @apply text-2xl font-bold;
+}
+h3 {
+  @apply text-xl font-bold text-gray-600 dark:text-gray-400;
 }
 
 /* --- 5 Column Grid --- */

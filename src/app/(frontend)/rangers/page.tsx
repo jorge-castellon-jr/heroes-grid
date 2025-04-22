@@ -3,45 +3,67 @@ import { getPayload, Payload } from 'payload';
 import React from 'react';
 
 import config from '@/payload.config';
-import RangerCard from './RangerCard'; // Import the new card component
 import { Ranger } from '@/payload-types'; // Import the interface
+import { RangersPage } from './RangerPage';
 
 // Make sure Payload's find operation returns data typed as Ranger[]
 // You might need to adjust the payload.find call or type assertion
 async function fetchRangers(payload: Payload): Promise<Ranger[]> {
   const result = await payload.find({
-    collection: 'rangers', // Assuming your collection is named 'rangers'
+    collection: 'rangers',
     limit: 100,
-    depth: 1, // Ensure nested fields like 'team' (if object) or 'deck.card' are populated if needed
+    depth: 2,
     where: {
       status: { equals: 'published' }
     }
   });
-  // Perform type assertion or validation if necessary
-  return result.docs as Ranger[];
+  return result.docs;
 }
 
 export default async function CardsPage() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
 
-  // Fetch data using the typed function
   const rangers: Ranger[] = await fetchRangers(payload);
+
+  const seasonsPayload = await payload.find({
+    collection: 'seasons',
+    limit: 100,
+    depth: 2,
+    where: {
+      status: { equals: 'published' }
+    }
+  });
+  const seasons = seasonsPayload.docs
 
   return (
     <div className="page-container">
-      {' '}
-      {/* Optional: Add a container for page padding */}
-      <h1>Power Rangers Deck</h1>
-      {rangers.length > 0 ? (
-        <div className="rangers-grid">
-          {rangers.map((ranger) => (
-            <RangerCard key={ranger.id} ranger={ranger} />
-          ))}
-        </div>
-      ) : (
-        <p>{"No Rangers found. It's quiet... too quiet."}</p>
-      )}
+      <div className='flex flex-col gap-4'>
+        {
+          seasons.map((season) => <div key={season.id} className='flex flex-col gap-2'>
+            <h2>{season.name}</h2>
+            {season.teams && season.teams.docs && season.teams.docs.map((team) => {
+              if (typeof team === 'number') return team
+              if (!team.rangers || !team.rangers.docs) return <></>
+
+              return (
+                <div key={team.id}>
+                  <h3>
+                    {team.name}
+                  </h3>
+                  <RangersPage rangers={team.rangers.docs as Ranger[]} />
+                  {/* { */}
+                  {/*   JSON.stringify(team.rangers?.docs) */}
+                  {/* } */}
+                </div>
+              )
+            })}
+          </div>)
+        }
+      </div>
+      <RangersPage rangers={rangers} />
     </div>
+
   );
 }
+

@@ -16,6 +16,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme } = useTheme();
 
+
   // Handle responsive sidebar
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +37,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       <head></head>
       <body suppressHydrationWarning>
         <ThemeProvider defaultTheme='dark'>
-          <div className={`min-h-screen ${theme === 'dark' ? 'dark text-white' : 'text-gray-900'}`}>
+          <div className={`min-h-screen ${theme !== 'light' ? 'dark text-white' : 'text-gray-900'}`}>
             <BackgroundEffects />
             <RangerColorBar />
 
