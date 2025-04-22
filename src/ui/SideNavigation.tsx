@@ -1,8 +1,9 @@
+"use client"
 import React from 'react';
 import { ChevronLeft, ChevronRight, Power, Users, Cpu, Box, Layers, Sun, Moon, X } from 'lucide-react';
 import { clsx } from 'clsx';
-import { useTheme } from '@/context/ThemeContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 interface SideNavigationProps {
   isExpanded: boolean;
@@ -13,13 +14,34 @@ interface SideNavigationProps {
 
 export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobileClose }: SideNavigationProps) {
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname()
+  const { theme, setTheme } = useTheme();
 
   const navItems = [
-    { icon: Users, label: 'Rangers', path: '/rangers' },
-    { icon: Cpu, label: 'Zords', path: '/zords' },
-    { icon: Box, label: 'Cards', path: '/cards' },
-    { icon: Layers, label: 'Megazords', path: '/megazords' },
+    {
+      icon: Users,
+      label: 'Rangers',
+      path: '/rangers',
+      isActive: pathname.startsWith('/rangers')
+    },
+    {
+      icon: Box,
+      label: 'Cards',
+      path: '/cards',
+      isActive: pathname.startsWith('/cards')
+    },
+    {
+      icon: Cpu,
+      label: 'Zords',
+      path: '/zords',
+      isActive: pathname.startsWith('/zords')
+    },
+    {
+      icon: Layers,
+      label: 'Megazords',
+      path: '/megazords',
+      isActive: pathname.startsWith('/megazords')
+    },
   ];
 
   const handleNavigation = (path: string) => {
@@ -82,9 +104,6 @@ export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobil
       {/* Navigation Items */}
       <div className="flex-1 px-4 py-8 space-y-2">
         {navItems.map((item) => {
-          const isActive = typeof window === 'undefined' ? false :
-            (item.path === '/' && location.pathname === '/') ||
-            (item.path !== '/' && location.pathname.startsWith(item.path));
 
           return (
             <button
@@ -92,7 +111,7 @@ export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobil
               onClick={() => handleNavigation(item.path)}
               className={clsx(
                 "w-full p-3 flex items-center rounded-lg transition-all duration-300 group",
-                isActive
+                item.isActive
                   ? "bg-red-600/20 text-red-500"
                   : theme === 'dark'
                     ? "hover:bg-white/5 text-gray-400 hover:text-white"
@@ -101,7 +120,7 @@ export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobil
             >
               <item.icon className={clsx(
                 "w-6 h-6 transition-transform duration-300",
-                isActive ? "text-red-500" : ""
+                item.isActive ? "text-red-500" : ""
               )} />
               <span className={clsx(
                 "ml-4 transition-all duration-300 whitespace-nowrap",
@@ -117,7 +136,7 @@ export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobil
       {/* Theme Toggle */}
       <div className="px-4 pb-8">
         <button
-          onClick={toggleTheme}
+          onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}
           className={clsx(
             "w-full p-3 flex items-center rounded-lg transition-all duration-300 group",
             theme === 'dark'

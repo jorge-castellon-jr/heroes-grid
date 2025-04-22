@@ -5,7 +5,6 @@ import React from 'react'
 import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
-import './styles.css'
 import Link from 'next/link'
 
 export default async function HomePage() {

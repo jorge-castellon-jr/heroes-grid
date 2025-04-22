@@ -3,17 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { RangerColorBar } from '@/ui/RangerColorBar';
 import { SideNavigation } from '@/ui/SideNavigation';
 import { BackgroundEffects } from '@/ui/BackgroundEffects';
-import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 import { Menu } from 'lucide-react';
 import clsx from 'clsx';
+import { ThemeProvider } from './ThemeProvider';
+import './styles.css'
+import { useTheme } from 'next-themes';
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   const [isExpanded, setIsExpanded] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // const { theme } = useTheme();
-  const theme = 'dark'
+  const { theme } = useTheme();
 
   // Handle responsive sidebar
   useEffect(() => {
@@ -31,9 +32,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <html>
-      <body>
-        <ThemeProvider>
+    <html lang='en'>
+      <head></head>
+      <body suppressHydrationWarning>
+        <ThemeProvider defaultTheme='dark'>
           <div className={`min-h-screen ${theme === 'dark' ? 'dark text-white' : 'text-gray-900'}`}>
             <BackgroundEffects />
             <RangerColorBar />
