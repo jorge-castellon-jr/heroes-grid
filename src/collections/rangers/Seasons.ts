@@ -12,7 +12,8 @@ export const Seasons: CollectionConfig = {
     read: () => true, // Publicly readable
   },
   fields: [
-    ...collectionDefaults,
+    collectionDefaults[0],
+    collectionDefaults[1],
     {
       name: "name",
       type: "text",
@@ -23,5 +24,15 @@ export const Seasons: CollectionConfig = {
         description: "The official name of the Power Rangers season.",
       },
     },
+    {
+      name: "order",
+      type: "number",
+      required: true,
+      unique: true,
+      label: "Season Release Order",
+      admin: {
+        description: "This is unique and for ordering in the front end",
+      },
+    }
   ],
 };

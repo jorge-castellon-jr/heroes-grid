@@ -259,14 +259,6 @@ export interface Team {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion?: (number | null) | Expansion;
-  expansions?:
-    | {
-        expansion: number | Expansion;
-        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * The official name of the Power Rangers team.
    */
@@ -290,18 +282,14 @@ export interface Season {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion?: (number | null) | Expansion;
-  expansions?:
-    | {
-        expansion: number | Expansion;
-        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * The official name of the Power Rangers season.
    */
   name: string;
+  /**
+   * This is unique and for ordering in the front end
+   */
+  order: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -926,14 +914,6 @@ export interface ExpansionsSelect<T extends boolean = true> {
 export interface TeamsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
-  expansion?: T;
-  expansions?:
-    | T
-    | {
-        expansion?: T;
-        includes?: T;
-        id?: T;
-      };
   name?: T;
   season?: T;
   rangers?: T;
@@ -947,15 +927,8 @@ export interface TeamsSelect<T extends boolean = true> {
 export interface SeasonsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
-  expansion?: T;
-  expansions?:
-    | T
-    | {
-        expansion?: T;
-        includes?: T;
-        id?: T;
-      };
   name?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }

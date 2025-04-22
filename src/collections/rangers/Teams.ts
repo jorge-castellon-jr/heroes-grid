@@ -12,7 +12,8 @@ export const Teams: CollectionConfig = {
     read: () => true, // Publicly readable
   },
   fields: [
-    ...collectionDefaults,
+    collectionDefaults[0],
+    collectionDefaults[1],
     {
       name: "name",
       type: "text",
