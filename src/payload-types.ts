@@ -315,7 +315,7 @@ export interface RangerCard {
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
   description?: string | null;
-  shields: '0' | '1' | '2' | '3';
+  shields: '1' | '2' | '3';
   /**
    * How many Dice?
    */

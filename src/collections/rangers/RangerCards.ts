@@ -56,7 +56,7 @@ export const RangerCards: CollectionConfig = {
             {
               name: "shields",
               type: "select",
-              options: ['0', '1', '2', '3'],
+              options: ['1', '2', '3'],
               required: true,
               label: "Shield Value",
             },
