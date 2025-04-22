@@ -34,7 +34,8 @@ export const Enemies: CollectionConfig = {
               type: "select",
               required: true,
               options: [
-                { label: "Minion", value: 'minion' },
+                { label: "Foot Soldiers", value: 'foot' },
+                { label: "Elite Foot Soldiers", value: 'elite' },
                 { label: "Monster", value: 'monster' },
                 { label: "Nemesis", value: 'nemesis' },
                 { label: "Boss", value: 'boss' },
