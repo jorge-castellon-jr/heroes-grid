@@ -144,11 +144,13 @@ export interface Ranger {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -243,11 +245,13 @@ export interface Team {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * The official name of the Power Rangers team.
    */
@@ -267,11 +271,13 @@ export interface Season {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * The official name of the Power Rangers season.
    */
@@ -298,11 +304,13 @@ export interface RangerCard {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
@@ -332,11 +340,13 @@ export interface Zord {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -362,11 +372,13 @@ export interface Megazord {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -382,11 +394,13 @@ export interface ArsenalCard {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   cost: 'R' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
   name: string;
   type: 'armor' | 'powerup' | 'team';
@@ -404,11 +418,13 @@ export interface UniqueCard {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   name: string;
   rules?: string | null;
   /**
@@ -485,11 +501,13 @@ export interface Enemy {
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
   expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */

@@ -32,7 +32,6 @@ export const collectionDefaults: CollectionConfig['fields'] = [
   {
     name: 'expansions',
     type: 'array',
-    required: true,
     fields: [
       {
         name: 'expansion',
@@ -47,7 +46,6 @@ export const collectionDefaults: CollectionConfig['fields'] = [
         options: [
           { label: 'All', value: 'all' },
           { label: 'Ranger Ability', value: 'ability' },
-
           { label: 'Combat Cards', value: 'cards' },
           { label: 'Figure', value: 'figure' },
         ]
