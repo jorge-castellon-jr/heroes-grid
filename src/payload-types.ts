@@ -193,7 +193,7 @@ export interface Ranger {
     | 'aqua'
     | 'graphite';
   type: 'core' | 'sixth' | 'extra' | 'ally';
-  tags?: (number | null) | Tag;
+  tags?: (number | Tag)[] | null;
   /**
    * Descriptive title on bottom of each card
    */
@@ -533,10 +533,10 @@ export interface Enemy {
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
   name: string;
-  monsterType: 'minion' | 'monster' | 'nemesis' | 'boss';
+  monsterType: 'foot' | 'elite' | 'monster' | 'nemesis' | 'boss';
   nemesisEffect?: string | null;
   season: number | Season;
-  tags?: (number | null) | Tag;
+  tags?: (number | Tag)[] | null;
   /**
    * The cards included in this Enemy's specific deck.
    */
@@ -544,8 +544,12 @@ export interface Enemy {
     | {
         health: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
         name: string;
-        cardtype: ('FAST' | 'GUARD' | 'PASSIVE')[];
+        cardtype?: ('FAST' | 'GUARD' | 'PASSIVE')[] | null;
         description?: string | null;
+        /**
+         * How many copies of this card are in the deck.
+         */
+        count: number;
         id?: string | null;
       }[]
     | null;
@@ -892,6 +896,7 @@ export interface EnemiesSelect<T extends boolean = true> {
         name?: T;
         cardtype?: T;
         description?: T;
+        count?: T;
         id?: T;
       };
   updatedAt?: T;
