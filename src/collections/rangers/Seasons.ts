@@ -29,7 +29,7 @@ export const Seasons: CollectionConfig = {
       type: "number",
       required: true,
       unique: true,
-      label: "Season Release Order",
+      label: "Season Release Year Order",
       admin: {
         description: "This is unique and for ordering in the front end",
       },
