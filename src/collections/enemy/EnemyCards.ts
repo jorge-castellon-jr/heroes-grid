@@ -33,7 +33,6 @@ export const EnemyCard: CollectionConfig['fields'] = [
           {
             name: "cardtype",
             type: "select",
-            required: true,
             hasMany: true,
             options: ["FAST", "GUARD", "PASSIVE"],
             label: "Card Type",
@@ -42,6 +41,18 @@ export const EnemyCard: CollectionConfig['fields'] = [
             name: "description",
             type: "textarea",
             label: "Card Description / Effect Text",
+          },
+          {
+            name: "count",
+            type: "number",
+            required: true,
+            min: 1,
+            defaultValue: 1,
+            label: "Count in Deck",
+            admin: {
+              description: "How many copies of this card are in the deck.",
+              step: 1,
+            },
           },
         ]
       },

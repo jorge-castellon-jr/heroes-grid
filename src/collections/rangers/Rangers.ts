@@ -112,6 +112,7 @@ export const Rangers: CollectionConfig = {
               name: "tags",
               type: "relationship",
               relationTo: "tags",
+              hasMany: true,
               label: "Tags",
             },
           ]

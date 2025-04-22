@@ -62,6 +62,7 @@ export const Enemies: CollectionConfig = {
               type: "relationship",
               relationTo: "tags",
               label: "Tags",
+              hasMany: true,
             },
           ]
         },
