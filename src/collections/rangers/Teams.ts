@@ -29,5 +29,11 @@ export const Teams: CollectionConfig = {
       relationTo: "seasons",
       label: "Season",
     },
+    {
+      name: "rangers",
+      type: "join",
+      collection: "rangers",
+      on: 'team'
+    },
   ],
 };

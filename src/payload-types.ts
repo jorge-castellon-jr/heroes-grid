@@ -84,7 +84,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    teams: {
+      rangers: 'rangers';
+    };
+  };
   collectionsSelect: {
     rangers: RangersSelect<false> | RangersSelect<true>;
     rangerCards: RangerCardsSelect<false> | RangerCardsSelect<true>;
@@ -257,6 +261,11 @@ export interface Team {
    */
   name: string;
   season?: (number | null) | Season;
+  rangers?: {
+    docs?: (number | Ranger)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -909,6 +918,7 @@ export interface TeamsSelect<T extends boolean = true> {
       };
   name?: T;
   season?: T;
+  rangers?: T;
   updatedAt?: T;
   createdAt?: T;
 }
