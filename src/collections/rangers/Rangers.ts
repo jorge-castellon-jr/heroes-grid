@@ -26,7 +26,7 @@ export const Rangers: CollectionConfig = {
   slug: "rangers",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "title", "team", "color", "status"],
+    defaultColumns: ["name", "title", "abilityName", "team", "color", "status"],
   },
   access: {
     read: () => true, // Publicly readable
@@ -164,6 +164,29 @@ export const Rangers: CollectionConfig = {
                   label: "Override Name",
                 },
                 // TODO: override image
+                {
+                  name: 'expansionData',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'expansion',
+                      type: 'relationship',
+                      relationTo: 'expansions',
+                    },
+                    {
+                      name: 'replaces',
+                      type: 'relationship',
+                      relationTo: 'rangerCards',
+                      admin: {
+                        description: 'Only if it replaces a card from original deck'
+                      }
+                    }
+                  ],
+                  admin: {
+                    description: 'Only if this specific card is not included with the ranger from the ranger expansions list'
+                  }
+                },
+
               ],
             },
           ]

@@ -28,6 +28,30 @@ export const collectionDefaults: CollectionConfig['fields'] = [
     name: 'expansion',
     type: 'relationship',
     relationTo: 'expansions',
-    required: true
-  }
+  },
+  {
+    name: 'expansions',
+    type: 'array',
+    required: true,
+    fields: [
+      {
+        name: 'expansion',
+        type: 'relationship',
+        relationTo: 'expansions',
+        required: true
+      },
+      {
+        name: 'includes',
+        type: 'select',
+        hasMany: true,
+        options: [
+          { label: 'All', value: 'all' },
+          { label: 'Ranger Ability', value: 'ability' },
+
+          { label: 'Combat Cards', value: 'cards' },
+          { label: 'Figure', value: 'figure' },
+        ]
+      }
+    ]
+  },
 ]

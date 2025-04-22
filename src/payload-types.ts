@@ -143,7 +143,12 @@ export interface Ranger {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -189,6 +194,16 @@ export interface Ranger {
          */
         count: number;
         overrideName?: string | null;
+        /**
+         * Only if this specific card is not included with the ranger from the ranger expansions list
+         */
+        expansionData?: {
+          expansion?: (number | null) | Expansion;
+          /**
+           * Only if it replaces a card from original deck
+           */
+          replaces?: (number | null) | RangerCard;
+        };
         id?: string | null;
       }[]
     | null;
@@ -227,7 +242,12 @@ export interface Team {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   /**
    * The official name of the Power Rangers team.
    */
@@ -246,7 +266,12 @@ export interface Season {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   /**
    * The official name of the Power Rangers season.
    */
@@ -262,7 +287,12 @@ export interface Tag {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -275,7 +305,12 @@ export interface RangerCard {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   energyCost: 'X' | '0' | '1' | '2' | '3' | '4';
   name: string;
   type: 'ATTACK' | 'ATTACK: SPECIAL' | 'MANEUVER' | 'REACTION';
@@ -304,7 +339,12 @@ export interface Zord {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -329,7 +369,12 @@ export interface Megazord {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   name: string;
   team: (number | Team)[];
   ability: string;
@@ -344,7 +389,12 @@ export interface ArsenalCard {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   cost: 'R' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
   name: string;
   type: 'armor' | 'powerup' | 'team';
@@ -361,7 +411,12 @@ export interface UniqueCard {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   name: string;
   rules?: string | null;
   /**
@@ -437,7 +492,12 @@ export interface Enemy {
   id: number;
   status: 'draft' | 'published';
   source: 'official' | 'tough' | 'user';
-  expansion: number | Expansion;
+  expansion?: (number | null) | Expansion;
+  expansions: {
+    expansion: number | Expansion;
+    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+    id?: string | null;
+  }[];
   /**
    * The character's name (e.g., Jason Lee Scott, Alpha 5).
    */
@@ -607,6 +667,13 @@ export interface RangersSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   title?: T;
   abilityName?: T;
@@ -623,6 +690,12 @@ export interface RangersSelect<T extends boolean = true> {
         card?: T;
         count?: T;
         overrideName?: T;
+        expansionData?:
+          | T
+          | {
+              expansion?: T;
+              replaces?: T;
+            };
         id?: T;
       };
   updatedAt?: T;
@@ -636,6 +709,13 @@ export interface RangerCardsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   energyCost?: T;
   name?: T;
   type?: T;
@@ -660,6 +740,13 @@ export interface ZordsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   team?: T;
   ability?: T;
@@ -678,6 +765,13 @@ export interface MegazordsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   team?: T;
   ability?: T;
@@ -692,6 +786,13 @@ export interface ArsenalCardsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   cost?: T;
   name?: T;
   type?: T;
@@ -708,6 +809,13 @@ export interface UniqueCardsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   rules?: T;
   cardTitle?: T;
@@ -732,6 +840,13 @@ export interface EnemiesSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   monsterType?: T;
   nemesisEffect?: T;
@@ -775,6 +890,13 @@ export interface TeamsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   season?: T;
   updatedAt?: T;
@@ -788,6 +910,13 @@ export interface SeasonsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -800,6 +929,13 @@ export interface TagsSelect<T extends boolean = true> {
   status?: T;
   source?: T;
   expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
   name?: T;
   updatedAt?: T;
   createdAt?: T;
