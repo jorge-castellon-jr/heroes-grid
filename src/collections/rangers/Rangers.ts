@@ -198,7 +198,8 @@ export const Rangers: CollectionConfig = {
               name: "zords",
               type: "join",
               collection: 'zords',
-              on: 'compatibleRangers'
+              on: 'compatibleRangers',
+              maxDepth: 2,
             },
           ]
         },

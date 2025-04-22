@@ -33,6 +33,14 @@ export const Seasons: CollectionConfig = {
       admin: {
         description: "This is unique and for ordering in the front end",
       },
-    }
+    },
+    {
+      name: "teams",
+      type: "join",
+      collection: 'teams',
+      on: 'season',
+      maxDepth: 2,
+    },
+
   ],
 };

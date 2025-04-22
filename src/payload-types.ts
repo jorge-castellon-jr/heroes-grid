@@ -94,6 +94,9 @@ export interface Config {
     teams: {
       rangers: 'rangers';
     };
+    seasons: {
+      teams: 'teams';
+    };
   };
   collectionsSelect: {
     rangers: RangersSelect<false> | RangersSelect<true>;
@@ -290,6 +293,11 @@ export interface Season {
    * This is unique and for ordering in the front end
    */
   order: number;
+  teams?: {
+    docs?: (number | Team)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -929,6 +937,7 @@ export interface SeasonsSelect<T extends boolean = true> {
   source?: T;
   name?: T;
   order?: T;
+  teams?: T;
   updatedAt?: T;
   createdAt?: T;
 }
