@@ -46,20 +46,20 @@ export function RangerControls({ rangerColors, teams }: RangerControlsProps) {
       </header>
 
       {/* Desktop Filters Panel */}
-      {showDesktopFilters && (
-        <FilterPanel
-          filters={filters}
-          // Adjust how FilterPanel interacts - maybe pass toggleFilter or setFilters
-          // Option 1: Pass toggleFilter if it handles individual toggles
-          // onFilterChange={toggleFilter} // You might need to adjust FilterPanel's props
-          // Option 2: Pass setFilters if it sets multiple filters
-          onFiltersChange={setFilters} // Adjust FilterPanel's props accordingly
-          onClose={toggleDesktopFilterPanel}
-          // Pass necessary data like colors/teams if FilterPanel needs them
-          rangerColors={rangerColors}
-          teams={teams}
-        />
-      )}
+      {/* {showDesktopFilters && ( */}
+      {/*   <FilterPanel */}
+      {/*     filters={filters} */}
+      {/*     // Adjust how FilterPanel interacts - maybe pass toggleFilter or setFilters */}
+      {/*     // Option 1: Pass toggleFilter if it handles individual toggles */}
+      {/*     // onFilterChange={toggleFilter} // You might need to adjust FilterPanel's props */}
+      {/*     // Option 2: Pass setFilters if it sets multiple filters */}
+      {/*     onFiltersChange={setFilters} // Adjust FilterPanel's props accordingly */}
+      {/*     onClose={toggleDesktopFilterPanel} */}
+      {/*     // Pass necessary data like colors/teams if FilterPanel needs them */}
+      {/*     rangerColors={rangerColors} */}
+      {/*     teams={teams} */}
+      {/*   /> */}
+      {/* )} */}
 
       {/* Mobile Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50"> {/* Added z-index */}
