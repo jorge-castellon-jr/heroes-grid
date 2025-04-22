@@ -16,7 +16,7 @@ export function SideNavigation({ isExpanded, onToggle, isMobileMenuOpen, onMobil
   const { theme, toggleTheme } = useTheme();
 
   const navItems = [
-    { icon: Users, label: 'Rangers', path: '/' },
+    { icon: Users, label: 'Rangers', path: '/rangers' },
     { icon: Cpu, label: 'Zords', path: '/zords' },
     { icon: Box, label: 'Cards', path: '/cards' },
     { icon: Layers, label: 'Megazords', path: '/megazords' },
