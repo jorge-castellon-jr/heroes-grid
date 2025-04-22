@@ -285,14 +285,6 @@ export interface Season {
  */
 export interface Tag {
   id: number;
-  status: 'draft' | 'published';
-  source: 'official' | 'tough' | 'user';
-  expansion?: (number | null) | Expansion;
-  expansions: {
-    expansion: number | Expansion;
-    includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
-    id?: string | null;
-  }[];
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -926,16 +918,6 @@ export interface SeasonsSelect<T extends boolean = true> {
  * via the `definition` "tags_select".
  */
 export interface TagsSelect<T extends boolean = true> {
-  status?: T;
-  source?: T;
-  expansion?: T;
-  expansions?:
-    | T
-    | {
-        expansion?: T;
-        includes?: T;
-        id?: T;
-      };
   name?: T;
   updatedAt?: T;
   createdAt?: T;
