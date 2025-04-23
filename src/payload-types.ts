@@ -74,6 +74,7 @@ export interface Config {
     arsenalCards: ArsenalCard;
     uniqueCards: UniqueCard;
     enemies: Enemy;
+    locations: Location;
     expansions: Expansion;
     teams: Team;
     seasons: Season;
@@ -106,6 +107,7 @@ export interface Config {
     arsenalCards: ArsenalCardsSelect<false> | ArsenalCardsSelect<true>;
     uniqueCards: UniqueCardsSelect<false> | UniqueCardsSelect<true>;
     enemies: EnemiesSelect<false> | EnemiesSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
     expansions: ExpansionsSelect<false> | ExpansionsSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
     seasons: SeasonsSelect<false> | SeasonsSelect<true>;
@@ -534,6 +536,7 @@ export interface Enemy {
    */
   name: string;
   monsterType: 'foot' | 'elite' | 'monster' | 'nemesis' | 'boss';
+  locations?: (number | null) | Location;
   nemesisEffect?: string | null;
   season: number | Season;
   tags?: (number | Tag)[] | null;
@@ -553,6 +556,27 @@ export interface Enemy {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: number;
+  status: 'draft' | 'published';
+  source: 'official' | 'tough' | 'user';
+  expansion?: (number | null) | Expansion;
+  expansions?:
+    | {
+        expansion: number | Expansion;
+        includes?: ('all' | 'ability' | 'cards' | 'figure')[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  name: string;
+  effect: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -627,6 +651,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'enemies';
         value: number | Enemy;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: number | Location;
       } | null)
     | ({
         relationTo: 'expansions';
@@ -886,6 +914,7 @@ export interface EnemiesSelect<T extends boolean = true> {
       };
   name?: T;
   monsterType?: T;
+  locations?: T;
   nemesisEffect?: T;
   season?: T;
   tags?: T;
@@ -899,6 +928,26 @@ export interface EnemiesSelect<T extends boolean = true> {
         count?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  status?: T;
+  source?: T;
+  expansion?: T;
+  expansions?:
+    | T
+    | {
+        expansion?: T;
+        includes?: T;
+        id?: T;
+      };
+  name?: T;
+  effect?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,31 +1,32 @@
 // storage-adapter-import-placeholder
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { resendAdapter } from '@payloadcms/email-resend'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
-import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Seasons } from './collections/rangers/Seasons'
+import { UniqueCombatCards } from './collections/rangers/UniqueCombatCards'
 import { Tags } from './collections/Tags'
+import { Users } from './collections/Users'
 
 // Rangers
+import { ArsenalCards } from './collections/rangers/ArsenalCards'
+import { Megazords } from './collections/rangers/Megazords'
+import { RangerCards } from './collections/rangers/RangerCards'
 import { Rangers } from './collections/rangers/Rangers'
 import { Teams } from './collections/rangers/Teams'
-import { RangerCards } from './collections/rangers/RangerCards'
 import { Zords } from './collections/rangers/Zords'
-import { Megazords } from './collections/rangers/Megazords'
-import { Seasons } from './collections/rangers/Seasons'
 
 // Enemies
 import { Enemies } from './collections/enemy/Enemies'
+import { Locations } from './collections/enemy/Locations'
 import { Expansions } from './collections/Expansions'
-import { s3Storage } from '@payloadcms/storage-s3'
-import { ArsenalCards } from './collections/rangers/ArsenalCards'
-import { UniqueCombatCards } from './collections/rangers/UniqueCombatCards'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,6 +50,7 @@ export default buildConfig({
 
     // Enemies
     Enemies,
+    Locations,
 
     // Other
     Expansions,

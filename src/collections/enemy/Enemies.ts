@@ -43,6 +43,16 @@ export const Enemies: CollectionConfig = {
               label: "Monster Type",
             },
             {
+              name: "locations",
+              type: "relationship",
+              relationTo: 'locations',
+              required: true,
+              label: "Locations",
+              admin: {
+                condition: (_, siblingData) => ["foot", "elite"].includes(siblingData?.monsterType),
+              },
+            },
+            {
               name: "nemesisEffect",
               type: "textarea",
               required: true,
