@@ -30,7 +30,7 @@ export const Locations: CollectionConfig = {
       type: "number",
       required: true,
       min: 1,
-      max: 1,
+      max: 10,
       defaultValue: 1,
       label: "Figure Limit",
     },
