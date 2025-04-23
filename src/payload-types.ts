@@ -536,7 +536,7 @@ export interface Enemy {
    */
   name: string;
   monsterType: 'foot' | 'elite' | 'monster' | 'nemesis' | 'boss';
-  locations?: (number | null) | Location;
+  locations?: (number | Location)[] | null;
   nemesisEffect?: string | null;
   season: number | Season;
   tags?: (number | Tag)[] | null;
@@ -577,6 +577,7 @@ export interface Location {
     | null;
   name: string;
   effect: string;
+  figureLimit: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -948,6 +949,7 @@ export interface LocationsSelect<T extends boolean = true> {
       };
   name?: T;
   effect?: T;
+  figureLimit?: T;
   updatedAt?: T;
   createdAt?: T;
 }

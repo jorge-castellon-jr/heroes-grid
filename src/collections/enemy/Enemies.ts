@@ -47,6 +47,7 @@ export const Enemies: CollectionConfig = {
               type: "relationship",
               relationTo: 'locations',
               required: true,
+              hasMany: true,
               label: "Locations",
               admin: {
                 condition: (_, siblingData) => ["foot", "elite"].includes(siblingData?.monsterType),

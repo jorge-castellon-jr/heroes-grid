@@ -25,5 +25,14 @@ export const Locations: CollectionConfig = {
       required: true,
       label: "Location Effect",
     },
+    {
+      name: "figureLimit",
+      type: "number",
+      required: true,
+      min: 1,
+      max: 1,
+      defaultValue: 1,
+      label: "Figure Limit",
+    },
   ],
 };
