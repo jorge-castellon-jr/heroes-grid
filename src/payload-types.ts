@@ -547,7 +547,7 @@ export interface Enemy {
     | {
         health: 'X' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
         name: string;
-        cardtype?: ('FAST' | 'GUARD' | 'PASSIVE')[] | null;
+        cardType?: ('FAST' | 'GUARD' | 'PASSIVE')[] | null;
         description?: string | null;
         /**
          * How many copies of this card are in the deck.
@@ -924,7 +924,7 @@ export interface EnemiesSelect<T extends boolean = true> {
     | {
         health?: T;
         name?: T;
-        cardtype?: T;
+        cardType?: T;
         description?: T;
         count?: T;
         id?: T;

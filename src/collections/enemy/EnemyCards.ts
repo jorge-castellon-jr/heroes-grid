@@ -31,7 +31,7 @@ export const EnemyCard: CollectionConfig['fields'] = [
           },
           // TODO: media will go here
           {
-            name: "cardtype",
+            name: "cardType",
             type: "select",
             hasMany: true,
             options: ["FAST", "GUARD", "PASSIVE"],
