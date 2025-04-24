@@ -92,9 +92,9 @@ export function RangersPage({ seasons }: { seasons: Season[] }) {
             filters={filters}
             onFiltersChange={setFilters} // Or pass toggleFilter if preferred
             onClose={toggleDesktopFilterPanel}
-            // Pass data needed by FilterPanel specifically for rangers
-            // Example: Assuming FilterPanel also uses FilterSection structure
-            filterSections={rangerFilterSections}
+          // Pass data needed by FilterPanel specifically for rangers
+          // Example: Assuming FilterPanel also uses FilterSection structure
+          // filterSections={rangerFilterSections}
           />
         }
         isMobileFilterPanelOpen={showMobileFilters}
@@ -121,4 +121,3 @@ export function RangersPage({ seasons }: { seasons: Season[] }) {
   );
 }
 
-// export default RangersPage;

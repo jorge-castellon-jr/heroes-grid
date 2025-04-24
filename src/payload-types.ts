@@ -545,7 +545,7 @@ export interface Enemy {
    */
   deck?:
     | {
-        health: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+        health: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10';
         name: string;
         cardtype?: ('FAST' | 'GUARD' | 'PASSIVE')[] | null;
         description?: string | null;

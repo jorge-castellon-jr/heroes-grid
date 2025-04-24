@@ -15,7 +15,7 @@ export const EnemyCard: CollectionConfig['fields'] = [
                 type: "select",
                 required: true,
                 label: "Health",
-                options: ['1', '2', '3', '4', '5', '6', '7', '8'],
+                options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
                 admin: {
                   width: '20%'
                 }
