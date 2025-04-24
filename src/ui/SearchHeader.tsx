@@ -12,28 +12,28 @@ interface SearchHeaderProps {
   title: string; // Title for the page (used in desktop header)
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  activeFilters: ActiveFilters; // Current active filters { colors: [...], teams: [...] }
-  onToggleFilter: (filterType: string, value: string) => void;
-  isDesktopFilterPanelOpen: boolean;
-  onToggleDesktopFilterPanel: () => void;
-  desktopFilterPanel?: React.ReactNode; // Optional: Render prop for the desktop panel itself
-  isMobileFilterPanelOpen: boolean;
-  onToggleMobileFilterPanel: () => void;
-  filterSections: FilterSection[]; // Configuration for mobile filter buttons
+  // activeFilters: ActiveFilters; // Current active filters { colors: [...], teams: [...] }
+  // onToggleFilter: (filterType: string, value: string) => void;
+  // isDesktopFilterPanelOpen: boolean;
+  // onToggleDesktopFilterPanel: () => void;
+  // desktopFilterPanel?: React.ReactNode; // Optional: Render prop for the desktop panel itself
+  // isMobileFilterPanelOpen: boolean;
+  // onToggleMobileFilterPanel: () => void;
+  // filterSections: FilterSection[]; // Configuration for mobile filter buttons
 }
 
 export function SearchHeader({
   title,
   searchQuery,
   onSearchChange,
-  activeFilters,
-  onToggleFilter,
-  isDesktopFilterPanelOpen,
-  onToggleDesktopFilterPanel,
-  desktopFilterPanel, // Receive the panel as a prop
-  isMobileFilterPanelOpen,
-  onToggleMobileFilterPanel,
-  filterSections,
+  // activeFilters,
+  // onToggleFilter,
+  // isDesktopFilterPanelOpen,
+  // onToggleDesktopFilterPanel,
+  // desktopFilterPanel, // Receive the panel as a prop
+  // isMobileFilterPanelOpen,
+  // onToggleMobileFilterPanel,
+  // filterSections,
 }: SearchHeaderProps) {
   const { theme } = useTheme();
 
@@ -43,11 +43,11 @@ export function SearchHeader({
       <header className="hidden md:flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
         <div className="flex items-center space-x-4">
-          <SearchBar onChange={onSearchChange} initialValue={searchQuery} />
+          <SearchBar onChange={onSearchChange} />
           {/* Only show desktop filter button if panel or sections provided */}
-          {(desktopFilterPanel || filterSections.length > 0) && (
-            <FilterButton onClick={onToggleDesktopFilterPanel} />
-          )}
+          {/* {(desktopFilterPanel || filterSections.length > 0) && ( */}
+          {/*   <FilterButton onClick={onToggleDesktopFilterPanel} /> */}
+          {/* )} */}
         </div>
       </header>
 
@@ -59,7 +59,7 @@ export function SearchHeader({
       </header>
 
       {/* Desktop Filters Panel (Rendered via prop) */}
-      {isDesktopFilterPanelOpen && desktopFilterPanel}
+      {/* {isDesktopFilterPanelOpen && desktopFilterPanel} */}
 
       {/* Mobile Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden z-50">
@@ -91,65 +91,65 @@ export function SearchHeader({
               </div>
             </div>
             {/* Only show filter toggle if filter sections exist */}
-            {filterSections.length > 0 && (
-              <button
-                onClick={onToggleMobileFilterPanel}
-                className={clsx(
-                  'p-3 rounded-lg flex items-center justify-center transition-colors',
-                  theme === 'dark'
-                    ? 'bg-gray-800 text-white hover:bg-gray-700'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                )}
-                aria-label={isMobileFilterPanelOpen ? "Close filters" : "Open filters"}
-              >
-                {isMobileFilterPanelOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Filter className="w-5 h-5" />
-                )}
-              </button>
-            )}
+            {/* {filterSections.length > 0 && ( */}
+            {/*   <button */}
+            {/*     onClick={onToggleMobileFilterPanel} */}
+            {/*     className={clsx( */}
+            {/*       'p-3 rounded-lg flex items-center justify-center transition-colors', */}
+            {/*       theme === 'dark' */}
+            {/*         ? 'bg-gray-800 text-white hover:bg-gray-700' */}
+            {/*         : 'bg-gray-100 text-gray-900 hover:bg-gray-200' */}
+            {/*     )} */}
+            {/*     aria-label={isMobileFilterPanelOpen ? "Close filters" : "Open filters"} */}
+            {/*   > */}
+            {/*     {isMobileFilterPanelOpen ? ( */}
+            {/*       <X className="w-5 h-5" /> */}
+            {/*     ) : ( */}
+            {/*       <Filter className="w-5 h-5" /> */}
+            {/*     )} */}
+            {/*   </button> */}
+            {/* )} */}
           </div>
 
           {/* Mobile Filters Drawer */}
-          {isMobileFilterPanelOpen && filterSections.length > 0 && (
-            <div
-              className={clsx(
-                'p-4 border-t overflow-y-auto max-h-60', // Increased max-height slightly
-                theme === 'dark' ? 'border-white/10' : 'border-gray-200'
-              )}
-            >
-              {filterSections.map((section) => (
-                <div key={section.id} className="mb-4 last:mb-0">
-                  <h3 className="text-sm font-semibold mb-2 uppercase tracking-wide"> {/* Styled heading */}
-                    {section.label}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {section.options.map((option) => {
-                      const isActive = activeFilters[section.id]?.includes(
-                        option.value
-                      );
-                      const activeClass = option.activeClassName || (theme === 'dark' ? 'bg-blue-600 border-transparent text-white' : 'bg-indigo-600 border-transparent text-white');
-                      const inactiveClass = option.inactiveClassName || (theme === 'dark' ? 'border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white' : 'border-gray-300 hover:border-gray-500 text-gray-600 hover:text-gray-900');
-
-                      return (
-                        <button
-                          key={option.value}
-                          onClick={() => onToggleFilter(section.id, option.value)}
-                          className={clsx(
-                            'px-3 py-1 rounded-full border text-xs transition-all duration-150 ease-in-out',
-                            isActive ? activeClass : inactiveClass
-                          )}
-                        >
-                          {option.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          {/* {isMobileFilterPanelOpen && filterSections.length > 0 && ( */}
+          {/*   <div */}
+          {/*     className={clsx( */}
+          {/*       'p-4 border-t overflow-y-auto max-h-60', // Increased max-height slightly */}
+          {/*       theme === 'dark' ? 'border-white/10' : 'border-gray-200' */}
+          {/*     )} */}
+          {/*   > */}
+          {/*     {filterSections.map((section) => ( */}
+          {/*       <div key={section.id} className="mb-4 last:mb-0"> */}
+          {/* <h3 className="text-sm font-semibold mb-2 uppercase tracking-wide">  */}
+          {/*           {section.label} */}
+          {/*         </h3> */}
+          {/*         <div className="flex flex-wrap gap-2"> */}
+          {/*           {section.options.map((option) => { */}
+          {/*             const isActive = activeFilters[section.id]?.includes( */}
+          {/*               option.value */}
+          {/*             ); */}
+          {/*             const activeClass = option.activeClassName || (theme === 'dark' ? 'bg-blue-600 border-transparent text-white' : 'bg-indigo-600 border-transparent text-white'); */}
+          {/*             const inactiveClass = option.inactiveClassName || (theme === 'dark' ? 'border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white' : 'border-gray-300 hover:border-gray-500 text-gray-600 hover:text-gray-900'); */}
+          {/**/}
+          {/*             return ( */}
+          {/*               <button */}
+          {/*                 key={option.value} */}
+          {/*                 onClick={() => onToggleFilter(section.id, option.value)} */}
+          {/*                 className={clsx( */}
+          {/*                   'px-3 py-1 rounded-full border text-xs transition-all duration-150 ease-in-out', */}
+          {/*                   isActive ? activeClass : inactiveClass */}
+          {/*                 )} */}
+          {/*               > */}
+          {/*                 {option.label} */}
+          {/*               </button> */}
+          {/*             ); */}
+          {/*           })} */}
+          {/*         </div> */}
+          {/*       </div> */}
+          {/*     ))} */}
+          {/* </div> */}
+          {/* )} */}
         </div>
       </div>
     </>

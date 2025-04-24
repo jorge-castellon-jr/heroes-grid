@@ -15,14 +15,14 @@ interface AppState {
   showMobileFilters: boolean;
   setSearch: (search: string) => void;
   // Make toggleFilter accept any string keyof AppFilters
-  toggleFilter: (
-    type: keyof Omit<AppFilters, 'search'>, // Use keyof to be type-safe
-    value: string
-  ) => void;
-  setFilters: (filters: Partial<AppFilters>) => void;
+  // toggleFilter: (
+  //   type: keyof Omit<AppFilters, 'search'>, // Use keyof to be type-safe
+  //   value: string
+  // ) => void;
+  // setFilters: (filters: Partial<AppFilters>) => void;
   toggleDesktopFilterPanel: () => void;
   toggleMobileFilterPanel: () => void;
-  resetFilters: (defaultFilters?: Partial<AppFilters>) => void; // Allow resetting to specific defaults
+  // resetFilters: (defaultFilters?: Partial<AppFilters>) => void; // Allow resetting to specific defaults
   closeMobileFilters: () => void; // Add action to specifically close mobile
 }
 
@@ -43,25 +43,25 @@ export const useAppStore = create<AppState>((set) => ({ // Rename hook for gener
       filters: { ...state.filters, search },
     })),
 
-  toggleFilter: (type, value) =>
-    set((state) => {
-      // Ensure the filter array exists before trying to access/modify it
-      const currentFilterValues = state.filters[type] ?? [];
-      const newFilterValues = currentFilterValues.includes(value)
-        ? currentFilterValues.filter((item) => item !== value)
-        : [...currentFilterValues, value];
-      return {
-        filters: {
-          ...state.filters,
-          [type]: newFilterValues,
-        },
-      };
-    }),
+  // toggleFilter: (type, value) =>
+  //   set((state) => {
+  //     // Ensure the filter array exists before trying to access/modify it
+  //     const currentFilterValues = state.filters[type] ?? [];
+  //     const newFilterValues = currentFilterValues.includes(value)
+  //       ? currentFilterValues.filter((item: string) => item !== value)
+  //       : [...currentFilterValues, value];
+  //     return {
+  //       filters: {
+  //         ...state.filters,
+  //         [type]: newFilterValues,
+  //       },
+  //     };
+  //   }),
 
-  setFilters: (newFilters) =>
-    set((state) => ({
-      filters: { ...state.filters, ...newFilters },
-    })),
+  // setFilters: (newFilters) =>
+  //   set((state) => ({
+  //     filters: { ...state.filters, ...newFilters },
+  // })),
 
   toggleDesktopFilterPanel: () =>
     set((state) => ({ showDesktopFilters: !state.showDesktopFilters })),
@@ -71,10 +71,10 @@ export const useAppStore = create<AppState>((set) => ({ // Rename hook for gener
 
   closeMobileFilters: () => set({ showMobileFilters: false }),
 
-  resetFilters: (defaultFilters = initialFilters) =>
-    set({
-      filters: { ...initialFilters, ...defaultFilters }, // Merge with potential defaults
-      showDesktopFilters: false,
-      showMobileFilters: false,
-    }),
+  // resetFilters: (defaultFilters = initialFilters) =>
+  //   set({
+  //     // filters: { ...initialFilters, ...defaultFilters }, // Merge with potential defaults
+  //     showDesktopFilters: false,
+  //     showMobileFilters: false,
+  //   }),
 }));

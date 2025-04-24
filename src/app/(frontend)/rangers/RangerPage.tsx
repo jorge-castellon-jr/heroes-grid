@@ -59,13 +59,13 @@ export function RangersPage({ seasons }: { seasons: Season[] }) {
   // Get state and actions from the global store
   const {
     filters,
-    showDesktopFilters,
-    showMobileFilters,
+    // showDesktopFilters,
+    // showMobileFilters,
     setSearch,
-    toggleFilter,
-    setFilters, // Keep if FilterPanel needs it
-    toggleDesktopFilterPanel,
-    toggleMobileFilterPanel,
+    // toggleFilter,
+    // setFilters, // Keep if FilterPanel needs it
+    // toggleDesktopFilterPanel,
+    // toggleMobileFilterPanel,
     closeMobileFilters, // Get the close action
   } = useAppStore();
 
@@ -83,23 +83,24 @@ export function RangersPage({ seasons }: { seasons: Season[] }) {
         title="Rangers / Heroes"
         searchQuery={filters.search}
         onSearchChange={setSearch}
-        activeFilters={filters} onToggleFilter={toggleFilter}
-        isDesktopFilterPanelOpen={showDesktopFilters}
-        onToggleDesktopFilterPanel={toggleDesktopFilterPanel}
-        // Pass the configured FilterPanel component for the desktop view
-        desktopFilterPanel={
-          <FilterPanel
-            filters={filters}
-            onFiltersChange={setFilters} // Or pass toggleFilter if preferred
-            onClose={toggleDesktopFilterPanel}
-          // Pass data needed by FilterPanel specifically for rangers
-          // Example: Assuming FilterPanel also uses FilterSection structure
-          // filterSections={rangerFilterSections}
-          />
-        }
-        isMobileFilterPanelOpen={showMobileFilters}
-        onToggleMobileFilterPanel={toggleMobileFilterPanel}
-        filterSections={rangerFilterSections} // Pass the config for mobile filters
+      // activeFilters={filters}
+      // onToggleFilter={toggleFilter}
+      // isDesktopFilterPanelOpen={showDesktopFilters}
+      // onToggleDesktopFilterPanel={toggleDesktopFilterPanel}
+      // Pass the configured FilterPanel component for the desktop view
+      // desktopFilterPanel={
+      // <FilterPanel
+      //   filters={filters}
+      //   onFiltersChange={setFilters} // Or pass toggleFilter if preferred
+      //   onClose={toggleDesktopFilterPanel}
+      // Pass data needed by FilterPanel specifically for rangers
+      // Example: Assuming FilterPanel also uses FilterSection structure
+      // filterSections={rangerFilterSections}
+      //  />
+      //}
+      // isMobileFilterPanelOpen={showMobileFilters}
+      // onToggleMobileFilterPanel={toggleMobileFilterPanel}
+      // filterSections={rangerFilterSections} // Pass the config for mobile filters
       />
       {
         seasons.map((season) => <div key={season.id} className='flex flex-col gap-2'>

@@ -10,4 +10,4 @@ export interface FilterSection {
 }
 
 // General shape for filter state - can be extended in store
-export type ActiveFilters = Record<string, string[]>;
+export type ActiveFilters = Record<string, string | string[]>;
