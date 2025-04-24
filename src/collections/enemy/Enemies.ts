@@ -91,8 +91,10 @@ export const Enemies: CollectionConfig = {
               },
               admin: {
                 description: "The cards included in this Enemy's specific deck.",
+                isSortable: false,
               },
               fields: EnemyCard
+
             }
           ]
         },
