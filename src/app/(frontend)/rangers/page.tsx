@@ -6,7 +6,7 @@ import config from '@/payload.config';
 import { RangersPage } from './RangerPage';
 
 
-export default async function CardsPage() {
+export default async function Page() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
 

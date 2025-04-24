@@ -54,7 +54,7 @@ const rangerFilterSections: FilterSection[] = [
 
 
 export function RangersPage({ seasons }: { seasons: Season[] }) {
-  const router = useRouter();
+  // const router = useRouter();
 
   // Get state and actions from the global store
   const {
@@ -66,15 +66,15 @@ export function RangersPage({ seasons }: { seasons: Season[] }) {
     // setFilters, // Keep if FilterPanel needs it
     // toggleDesktopFilterPanel,
     // toggleMobileFilterPanel,
-    closeMobileFilters, // Get the close action
+    // closeMobileFilters, // Get the close action
   } = useAppStore();
 
   // Close mobile filters when navigating away (optional but good UX)
-  useEffect(() => {
-    return () => {
-      closeMobileFilters();
-    }
-  }, [closeMobileFilters, router]); // Dependency array includes router if navigation triggers unmount/remount
+  // useEffect(() => {
+  //   return () => {
+  //     closeMobileFilters();
+  //   }
+  // }, [closeMobileFilters, router]); // Dependency array includes router if navigation triggers unmount/remount
 
 
   return (
