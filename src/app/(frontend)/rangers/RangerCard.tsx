@@ -77,16 +77,16 @@ export function RangerCard({ ranger }: { ranger: Ranger }) {
             : "bg-red-500/5 border-red-500/20"
         )}>
           <h4 className="text-sm font-semibold text-red-400 mb-2">{abilityName}</h4>
-          <p className={clsx(
+          <div className={clsx(
             "text-xs sm:text-sm",
             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
           )}>
             {ability.split('\n').map((line, index) => (
-              <div key={index}>
+              <p key={`line-${abilityName}-${index}`}>
                 {line}
-              </div>
+              </p>
             ))}
-          </p>
+          </div>
         </div>
 
         <div className="flex justify-between items-center">

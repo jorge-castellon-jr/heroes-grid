@@ -121,7 +121,7 @@ export const RangerCards: CollectionConfig = {
               type: "join",
               collection: 'rangers',
               on: 'deck.card',
-              maxDepth: 2,
+              maxDepth: 3,
             },
           ]
         },

@@ -39,7 +39,7 @@ export const Seasons: CollectionConfig = {
       type: "join",
       collection: 'teams',
       on: 'season',
-      maxDepth: 2,
+      maxDepth: 3,
     },
 
   ],

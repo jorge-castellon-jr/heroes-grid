@@ -97,13 +97,13 @@ body {
   }
 }
 
-h1 {
+h1.page-title {
   @apply text-4xl font-black;
 }
-h2 {
+h2.title {
   @apply text-2xl font-bold;
 }
-h3 {
+h3.subtitle {
   @apply text-xl font-bold text-gray-600 dark:text-gray-400;
 }
 

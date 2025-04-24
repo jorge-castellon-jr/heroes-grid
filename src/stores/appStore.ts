@@ -1,37 +1,39 @@
 import { create } from 'zustand';
+import { ActiveFilters } from '@/types/filters'; // Import the type
 
-// Define the shape of your filters
-interface RangerFilters {
+interface AppFilters extends ActiveFilters {
   search: string;
   colors: string[];
   teams: string[];
-  type: string[]; // Assuming 'type' was also intended based on original state
+  type: string[];
 }
 
 // Define the state shape
-interface RangerState {
-  filters: RangerFilters;
+interface AppState {
+  filters: AppFilters;
   showDesktopFilters: boolean;
   showMobileFilters: boolean;
   setSearch: (search: string) => void;
+  // Make toggleFilter accept any string keyof AppFilters
   toggleFilter: (
-    type: keyof Omit<RangerFilters, 'search'>, // 'colors' | 'teams' | 'type'
+    type: keyof Omit<AppFilters, 'search'>, // Use keyof to be type-safe
     value: string
   ) => void;
-  setFilters: (filters: Partial<RangerFilters>) => void; // For FilterPanel potentially
+  setFilters: (filters: Partial<AppFilters>) => void;
   toggleDesktopFilterPanel: () => void;
   toggleMobileFilterPanel: () => void;
-  resetFilters: () => void; // Optional: Add a way to reset
+  resetFilters: (defaultFilters?: Partial<AppFilters>) => void; // Allow resetting to specific defaults
+  closeMobileFilters: () => void; // Add action to specifically close mobile
 }
 
-const initialFilters: RangerFilters = {
+const initialFilters: AppFilters = {
   search: '',
   colors: [],
   teams: [],
   type: [],
 };
 
-export const useRangerStore = create<RangerState>((set) => ({
+export const useAppStore = create<AppState>((set) => ({ // Rename hook for generality
   filters: initialFilters,
   showDesktopFilters: false,
   showMobileFilters: false,
@@ -43,7 +45,8 @@ export const useRangerStore = create<RangerState>((set) => ({
 
   toggleFilter: (type, value) =>
     set((state) => {
-      const currentFilterValues = state.filters[type];
+      // Ensure the filter array exists before trying to access/modify it
+      const currentFilterValues = state.filters[type] ?? [];
       const newFilterValues = currentFilterValues.includes(value)
         ? currentFilterValues.filter((item) => item !== value)
         : [...currentFilterValues, value];
@@ -55,7 +58,6 @@ export const useRangerStore = create<RangerState>((set) => ({
       };
     }),
 
-  // Example: If FilterPanel needs to set multiple filters at once
   setFilters: (newFilters) =>
     set((state) => ({
       filters: { ...state.filters, ...newFilters },
@@ -67,9 +69,11 @@ export const useRangerStore = create<RangerState>((set) => ({
   toggleMobileFilterPanel: () =>
     set((state) => ({ showMobileFilters: !state.showMobileFilters })),
 
-  resetFilters: () =>
+  closeMobileFilters: () => set({ showMobileFilters: false }),
+
+  resetFilters: (defaultFilters = initialFilters) =>
     set({
-      filters: initialFilters,
+      filters: { ...initialFilters, ...defaultFilters }, // Merge with potential defaults
       showDesktopFilters: false,
       showMobileFilters: false,
     }),

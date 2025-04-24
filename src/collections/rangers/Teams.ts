@@ -35,7 +35,7 @@ export const Teams: CollectionConfig = {
       type: "join",
       collection: "rangers",
       on: 'team',
-      maxDepth: 2,
+      maxDepth: 3,
     },
   ],
 };
