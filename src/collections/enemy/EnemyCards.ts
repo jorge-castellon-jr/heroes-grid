@@ -34,7 +34,11 @@ export const EnemyCard: CollectionConfig['fields'] = [
             name: "cardType",
             type: "select",
             hasMany: true,
-            options: ["FAST", "GUARD", "PASSIVE"],
+            options: [
+              { label: "FAST", value: "FAST" },
+              { label: "GUARD", value: "GUARD" },
+              { label: "PASSIVE", value: "PASSIVE" },
+            ],
             label: "Card Type",
           },
           {
