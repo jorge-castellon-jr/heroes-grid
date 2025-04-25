@@ -4,10 +4,10 @@ import { EnemyCard } from './EnemyCards';
 
 
 export const Enemies: CollectionConfig = {
-  slug: "enemies",
+  slug: 'enemies',
   admin: {
-    useAsTitle: "name",
-    defaultColumns: ["name", "monsterType", "team", "color", "status"],
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'monsterType', 'team', 'color', 'status'],
   },
   access: {
     read: () => true, // Publicly readable
@@ -21,59 +21,59 @@ export const Enemies: CollectionConfig = {
           label: 'Basic Information',
           fields: [
             {
-              name: "name",
-              type: "text",
+              name: 'name',
+              type: 'text',
               required: true,
-              label: "Enemy Name",
+              label: 'Enemy Name',
               admin: {
                 description: "The character's name (e.g., Jason Lee Scott, Alpha 5).",
               },
             },
             {
-              name: "monsterType",
-              type: "select",
+              name: 'monsterType',
+              type: 'select',
               required: true,
               options: [
-                { label: "Foot Soldiers", value: 'foot' },
-                { label: "Elite Foot Soldiers", value: 'elite' },
-                { label: "Monster", value: 'monster' },
-                { label: "Nemesis", value: 'nemesis' },
-                { label: "Boss", value: 'boss' },
+                { label: 'Foot Soldiers', value: 'foot' },
+                { label: 'Elite Foot Soldiers', value: 'elite' },
+                { label: 'Monster', value: 'monster' },
+                { label: 'Nemesis', value: 'nemesis' },
+                { label: 'Boss', value: 'boss' },
               ],
-              label: "Monster Type",
+              label: 'Monster Type',
             },
             {
-              name: "locations",
-              type: "relationship",
+              name: 'locations',
+              type: 'relationship',
               relationTo: 'locations',
               required: true,
               hasMany: true,
-              label: "Locations",
+              label: 'Locations',
               admin: {
-                condition: (_, siblingData) => ["foot", "elite"].includes(siblingData?.monsterType),
+                condition: (_, siblingData) => ['foot', 'elite'].includes(siblingData?.monsterType),
               },
             },
             {
-              name: "nemesisEffect",
-              type: "textarea",
+              name: 'nemesisEffect',
+              type: 'textarea',
               required: true,
-              label: "Nemesis Effect",
+              label: 'Nemesis Effect',
               admin: {
-                condition: (_, siblingData) => siblingData?.monsterType === "nemesis",
+                condition: (_, siblingData) => siblingData?.monsterType === 'nemesis',
               },
             },
             {
-              name: "season",
-              type: "relationship",
-              relationTo: "seasons",
+              name: 'season',
+              type: 'relationship',
+              relationTo: 'seasons',
               required: true,
-              label: "Season",
+              label: 'Season',
             },
             {
-              name: "tags",
-              type: "relationship",
-              relationTo: "tags",
-              label: "Tags",
+              name: 'tags',
+              type: 'relationship',
+              relationTo: 'tags',
+              label: 'Tags',
               hasMany: true,
             },
           ]
@@ -82,9 +82,9 @@ export const Enemies: CollectionConfig = {
           label: 'Deck',
           fields: [
             {
-              name: "deck",
-              type: "array",
-              label: "Combat Deck",
+              name: 'deck',
+              type: 'array',
+              label: 'Combat Deck',
               labels: {
                 singular: 'Card',
                 plural: 'Cards'
@@ -102,8 +102,8 @@ export const Enemies: CollectionConfig = {
           label: 'Preview',
           fields: [
             {
-              name: "preview",
-              type: "ui",
+              name: 'preview',
+              type: 'ui',
               admin: {
 
               }

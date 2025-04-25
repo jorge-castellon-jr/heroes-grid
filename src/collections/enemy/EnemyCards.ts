@@ -11,50 +11,50 @@ export const EnemyCard: CollectionConfig['fields'] = [
             type: 'row',
             fields: [
               {
-                name: "health",
-                type: "select",
+                name: 'health',
+                type: 'select',
                 required: true,
-                label: "Health",
+                label: 'Health',
                 options: ['X', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
                 admin: {
                   width: '20%'
                 }
               },
               {
-                name: "name",
-                type: "text",
+                name: 'name',
+                type: 'text',
                 required: true,
                 index: true,
-                label: "Card Name",
+                label: 'Card Name',
               },
             ]
           },
           // TODO: media will go here
           {
-            name: "cardType",
-            type: "select",
+            name: 'cardType',
+            type: 'select',
             hasMany: true,
             options: [
-              { label: "FAST", value: "FAST" },
-              { label: "GUARD", value: "GUARD" },
-              { label: "PASSIVE", value: "PASSIVE" },
+              { label: 'FAST', value: 'FAST' },
+              { label: 'GUARD', value: 'GUARD' },
+              { label: 'PASSIVE', value: 'PASSIVE' },
             ],
-            label: "Card Type",
+            label: 'Card Type',
           },
           {
-            name: "description",
-            type: "textarea",
-            label: "Card Description / Effect Text",
+            name: 'description',
+            type: 'textarea',
+            label: 'Card Description / Effect Text',
           },
           {
-            name: "count",
-            type: "number",
+            name: 'count',
+            type: 'number',
             required: true,
             min: 1,
             defaultValue: 1,
-            label: "Count in Deck",
+            label: 'Count in Deck',
             admin: {
-              description: "How many copies of this card are in the deck.",
+              description: 'How many copies of this card are in the deck.',
               step: 1,
             },
           },
